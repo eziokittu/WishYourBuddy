@@ -1,0 +1,2 @@
+<h1>Wish Your Buddy</h1><br>
+<p>This is a Birthday wishing website where we can customizr the images, text, song and many more and then generate the website. I will be making a server side with authentication from firebase so that users can create their own website for free and keep them LIVE for a fixed number of hours. I think of adding a payment system later on to the feature / time to keep live and many more.</p>
