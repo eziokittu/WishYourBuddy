@@ -1,0 +1,22 @@
+{
+  "env": {
+    "DB_PORT": 5000,
+    "DB_USER": "user",
+    "DB_PASSWORD": "user",
+    "DB_NAME": "wish-your-buddy",
+    "JWT_KEY": "supersecret_dont_share",
+    
+    "DB_DEFAULT_IMAGE": "uploads/images/defaultImage.png",
+    "DB_DEFAULT_MUSIC": "uploads/music/defaultMusic.png",
+
+    "DB_ADMIN_EMAIL": "admin@gmail.com",
+    "DB_ADMIN_PASSWORD": "passme",
+
+    "DB_PAGECOUNT_TERMINATIONS": 2,
+    "DB_PAGECOUNT_EMPLOYEES": 3,
+    "DB_PAGECOUNT_USERS": 5,
+    "DB_PAGECOUNT_OFFERS": 3,
+    "DB_PAGECOUNT_PROJECTS": 2,
+    "DB_PAGECOUNT_APPLICATIONS": 2
+  }
+}
