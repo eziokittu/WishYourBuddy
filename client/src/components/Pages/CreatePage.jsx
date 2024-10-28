@@ -16,17 +16,19 @@ const CreatePage = () => {
       <div className='bg-slate-800 text-gray-300'>
 
         {/* For medium screens and above */}
-        <div className='hidden md:flex flex-row'>
+        <div className='hidden md:flex flex-row w-screen h-screen'>
           {/* Sidebar menu */}
           <div className='bg-slate-900 fixed inset-y-0 top-6 w-80 overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-950'>
             <Sidebar />
           </div>
 
           {/* Preview Page */}
-          <div className='bg-slate-800 fixed inset-y-0 top-6 md:ml-80 overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-950'>
+          <div className='bg-slate-800 ml-80 flex-grow h-screen overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-950'>
             <PreviewPage />
           </div>
         </div>
+
+
 
         {/* For smaller screens */}
         <div className='md:hidden flex flex-row relative'>
@@ -37,8 +39,10 @@ const CreatePage = () => {
 
           {/* Fixed Close Button on the Right Side of Sidebar */}
           {isSidebarOpen && (
-            <div onClick={toggleSidebar} className='fixed top-6 -right-[0.5%] -xsm:right-[3%] -sm:right-[4%] h-full w-1/6 xsm:w-1/3 sm:w-2/5 bg-black/70 flex items-center justify-center cursor-pointer text-white z-20'>
-              <p className='text-8xl text-left w-full animate-[pulse_0.8s_ease-in-out_infinite]'>{`<`}</p>
+            <div onClick={toggleSidebar} className='fixed top-6 right-0 h-full w-1/6 xsm:w-1/3 sm:w-2/5 bg-black/70 flex items-center justify-left cursor-pointer text-white z-20'>
+              <div className='text-6xl xsm:text-8xl bg-slate-900/70 rounded-r-3xl flex items-center'>
+                <p className='animate-[pulse_0.8s_ease-in-out_infinite]  -translate-y-3'>{`<`}</p>
+              </div>
             </div>
           )}
 

@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className='fixed top-0 h-6 w-full flex flex-row justify-between bg-slate-900 text-slate-50'>
+      <div className='fixed top-0 h-6 w-full flex flex-row justify-between bg-slate-900 text-slate-50 border-b border-slate-200'>
         {/* Left Logo */}
         <div>
           <Link to={"/"}><button>Wish-Your-Buddy</button></Link>
