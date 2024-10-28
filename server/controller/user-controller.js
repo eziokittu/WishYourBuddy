@@ -42,19 +42,19 @@ const User = require('../models/user');
 //   res.json({ok:1, users: users.map(user => user.toObject({ getters: true }))});
 // };
 
-// const getUser = async (req, res, next) => {
-//   const userName = req.params['uid'];
-//   // console.log('DEBUG -- user-controller.js -- 1: '+uid);
-//   let user;
-//   try {
-//     // user = await User.find();
-//     user = await User.findOne({userName: userName}, '-password');
-//     // console.log('DEBUG -- user-controller.js -- 2: '+user.name);
-//   } catch (err) {
-//     return res.json({ok:-1, message: "Fetching user failed, please try again later"});
-//   }
-//   res.json({ok:1, user: user});
-// };
+const getUser = async (req, res, next) => {
+  const userName = req.params['uid'];
+  // console.log('DEBUG -- user-controller.js -- 1: '+uid);
+  let user;
+  try {
+    // user = await User.find();
+    user = await User.findOne({userName: userName}, '-password');
+    // console.log('DEBUG -- user-controller.js -- 2: '+user.name);
+  } catch (err) {
+    return res.json({ok:-1, message: "Fetching user failed, please try again later"});
+  }
+  res.json({ok:1, user: user});
+};
 
 // const getUserById = async (req, res, next) => {
 //   const userId = req.params['uid'];
@@ -314,7 +314,7 @@ const User = require('../models/user');
 
 // POST
 
-const signin = async (req, res, next) => {
+const signup = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -362,7 +362,7 @@ const signin = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
-  console.log("Email: "+email+" , Password: "+password);
+  // console.log("Email: "+email+" , Password: "+password);
   
   let existingUser;
 
@@ -670,13 +670,13 @@ module.exports = {
 
   // getUserCount,
 	// getUsers,
-  // getUser,
+  getUser,
   // getUserById,
   // getUserByEmail,
   // getUserByUsername,
   // getEmployeesByProjectId,
 
-	signin,
+	signup,
 	login
 
   // updateUserInfo,

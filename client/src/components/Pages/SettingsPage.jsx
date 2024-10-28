@@ -4,22 +4,21 @@ import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
 import ErrorPage from './ErrorPage';
 
-const AdminPage = () => {
+const SettingsPage = () => {
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
-
   return (
-    <div>
+    <>
       <Header />
-      {auth.isAdmin ? (
-        <div className='bg-slate-800 text-gray-300 h-screen flex'>
-          <p className='text-center justify-center m-auto text-6xl'>ADMIN Page - {auth.email.split('@')[0]}</p>
-        </div>
+      {auth.token ? (
+      <div className='bg-slate-800 text-gray-300 h-screen flex mt-6'>
+        <p>Settings Page for user details, page colours ...</p>
+      </div>
       ) : (
-        <ErrorPage isInsideAPage={true} message="You are not authorized to view this page"/>
+        <ErrorPage isInsideAPage={true} message="You need to login to update the settings!"/>
       )}
-    </div>
+    </>
   )
 }
 
-export default AdminPage
+export default SettingsPage

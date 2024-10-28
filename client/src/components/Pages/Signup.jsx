@@ -4,10 +4,11 @@ import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
 import Header from '../PageComponents/Header';
 
-const Login = () => {
+const Signup = () => {
   const auth = useContext(AuthContext);
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+  const [inputConfirmPassword, setInputConfirmPassword] = useState('');
   const { sendRequest } = useHttpClient();
   const navigate = useNavigate();
 
@@ -28,6 +29,10 @@ const Login = () => {
       alerts.push('Enter a Valid password [min length 6] --');
     }
 
+    if (inputConfirmPassword !== inputPassword) {
+      alerts.push("Password does not match with confirm password!");
+    }
+
     return alerts; // Return the alerts array directly
   };
 
@@ -42,9 +47,9 @@ const Login = () => {
     }
 
     try {
-      // console.log(inputEmail, inputPassword);
+      // console.log(inputEmail, inputPassword, inputFirstname, inputLastname);
       const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/users/login`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
         'POST',
         JSON.stringify({
           email: inputEmail,
@@ -55,7 +60,7 @@ const Login = () => {
         }
       );
       if (responseData.ok === 1) {
-        await auth.login(
+        auth.login(
           responseData.userId,
           responseData.token,
           responseData.isAdmin,
@@ -64,15 +69,15 @@ const Login = () => {
           responseData.email,
           false
         );
-        console.log('Login successful!');
+        console.log('Signup successful!');
         navigate('/');
       }
       else {
-        console.log("ERROR signing in!");
-        alert("Error logging in! - "+responseData.message);
+        console.log('ERROR Signing in!');
+        alert("Error signing in! - " + responseData.message);
       }
     } catch (err) {
-      console.log('ERROR signing in! --\n' + err);
+      console.log('ERROR Signing in!');
     }
   };
 
@@ -80,7 +85,7 @@ const Login = () => {
     <div>
       <Header />
       <div className='mt-6 pt-24 bg-slate-800 text-gray-300 h-screen flex flex-col'>
-        <p className='text-center text-4xl pb-8'>Login Page</p>
+        <p className='text-center text-4xl pb-8'>Signup Page</p>
         <form
           className='flex flex-col gap-2 border w-fit h-fit mx-auto p-8'
           onSubmit={authSubmitHandler}
@@ -114,10 +119,23 @@ const Login = () => {
             />
           </div>
 
-          <button className='hover:underline underline-offset-2' type='submit'>LOGIN</button>
-          <button className='hover:underline underline-offset-2 pt-8'>Forgot Password?</button>
-          <button className='hover:underline underline-offset-2'>
-            <Link to={"/signup"}>Signup Instead?</Link>
+          {/* Confirm Password */}
+          <div className='flex flex-col mx-auto'>
+            <label for="confirm-password" className="w-fit">Confirm password</label>
+            <input
+              onChange={(event) => setInputConfirmPassword(event.target.value)}
+              type="password"
+              name="confirm-password"
+              id="confirm-password"
+              placeholder="Confirm Password"
+              className="w-60 text-black"
+              required=""
+            />
+          </div>
+
+          <button className='hover:underline underline-offset-2' type='submit'>Signup</button>
+          <button className='hover:underline underline-offset-2 pt-8'>
+            <Link to={"/login"}>Already have an account?</Link>
           </button>
 
         </form>
@@ -126,4 +144,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup

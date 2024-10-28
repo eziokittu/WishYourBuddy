@@ -5,22 +5,23 @@ import { useAuth } from "./components/Backend/hooks/auth-hook";
 
 import Dashboard from "./components/Pages/Dashboard";
 import Login from "./components/Pages/Login";
-import Signin from "./components/Pages/Signin";
+import Signup from "./components/Pages/Signup";
 import DemoPage from './components/Pages/DemoPage';
 import ErrorPage from './components/Pages/ErrorPage';
+import CreatePage from './components/Pages/CreatePage';
 import AdminPage from './components/Pages/AdminPage';
-import UserPage from './components/Pages/UserPage';
+import SettingsPage from './components/Pages/SettingsPage';
 
 const App = () => {
-  const { 
-    token, 
-    userId, 
-    isPaid, 
-    isAdmin, 
+  const {
+    token,
+    userId,
+    isPaid,
+    isAdmin,
     userName,
     email,
 
-    login, 
+    login,
     logout,
     updateUser
   } = useAuth();
@@ -42,27 +43,40 @@ const App = () => {
       }}
     >
       <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Dashboard />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/demo" element={<DemoPage />} />
+          <Route exact path="/admin" element={<AdminPage />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/settings" element={<SettingsPage />} />
+          <Route exact path="/create" element={<CreatePage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
         {/* Conditional rendering for authorized and unauthorized users */}
-        {token ? (
+        {/* {token ? (
           <>
-          {isAdmin && (
-            <Routes>
-              <Route exact path="/" element={<Dashboard />} />
-              <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/demo" element={<DemoPage />} />
-              <Route exact path="/admin" element={<AdminPage />} />
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          )}
-          {!isAdmin && (
-            <Routes>
-              <Route exact path="/" element={<Dashboard />} />
-              <Route exact path="/dashboard" element={<Dashboard />} />
-              <Route exact path="/demo" element={<DemoPage />} />
-              <Route exact path="/user" element={<UserPage />} />
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          )}
+            {isAdmin && (
+              <Routes>
+                <Route exact path="/" element={<Dashboard />} />
+                <Route exact path="/dashboard" element={<Dashboard />} />
+                <Route exact path="/demo" element={<DemoPage />} />
+                <Route exact path="/admin" element={<AdminPage />} />
+                <Route exact path="/settings" element={<SettingsPage />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            )}
+            {!isAdmin && (
+              <Routes>
+                <Route exact path="/" element={<Dashboard />} />
+                <Route exact path="/dashboard" element={<Dashboard />} />
+                <Route exact path="/demo" element={<DemoPage />} />
+                <Route exact path="/settings" element={<SettingsPage />} />
+                <Route exact path="/create" element={<CreatePage />} />
+                <Route path="*" element={<ErrorPage />} />
+              </Routes>
+            )}
           </>
         ) : (
           // If not Authorized user
@@ -70,11 +84,11 @@ const App = () => {
             <Route exact path="/" element={<Dashboard />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/signin" element={<Signin />} />
+            <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/demo" element={<DemoPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-        )}
+        )} */}
       </BrowserRouter>
     </AuthContext.Provider>
   )
