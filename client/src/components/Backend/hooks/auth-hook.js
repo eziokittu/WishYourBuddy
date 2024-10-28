@@ -56,14 +56,16 @@ export const useAuth = () => {
     localStorage.removeItem('userData');
   }, []);
 
-  const updateUser = useCallback((_userName, _email) => {
+  const updateInfo = useCallback((_userName, _email) => {
     // Update state variables
     setUserName(_userName);
     setEmail(_email);
   
-    // Update localStorage
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    if (storedData) {
+    // Retrieve localStorage data and provide a default if it's null
+    const storedData = JSON.parse(localStorage.getItem('userData')) || {};
+
+    // Update localStorage with the new user data
+    try {
       localStorage.setItem(
         'userData',
         JSON.stringify({
@@ -72,8 +74,10 @@ export const useAuth = () => {
           email: _email,
         })
       );
+    } catch (error) {
+      console.error('Failed to update localStorage:', error);
     }
-  }, []);  
+  }, [setUserName, setEmail]);
 
   useEffect(() => {
     if (token && tokenExpirationDate) {
@@ -111,6 +115,6 @@ export const useAuth = () => {
     userName,
     login, 
     logout, 
-    updateUser
+    updateInfo
   };
 };

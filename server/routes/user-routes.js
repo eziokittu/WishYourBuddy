@@ -3,11 +3,13 @@ const { check } = require('express-validator');
 const userController = require('../controller/user-controller');
 const router = express.Router();
 
+// GET Routes
 router.get(
-  '/get/:uid',
+  '/get/:username',
   userController.getUser
 );
 
+// POST Routes
 router.post(
   '/signup',
   [
@@ -19,5 +21,11 @@ router.post(
   userController.signup
 );
 router.post('/login', userController.login);
+
+// PATCH Routes
+router.patch(
+  '/patch/:uid',
+  userController.updateUserInfo
+);
 
 module.exports = router;

@@ -43,13 +43,16 @@ const User = require('../models/user');
 // };
 
 const getUser = async (req, res, next) => {
-  const userName = req.params['uid'];
+  const userName = req.params['username'];
   // console.log('DEBUG -- user-controller.js -- 1: '+uid);
   let user;
   try {
     // user = await User.find();
     user = await User.findOne({userName: userName}, '-password');
     // console.log('DEBUG -- user-controller.js -- 2: '+user.name);
+    if (!user){
+      return res.json({ok:-1, message: "Invalid Username!"});
+    }
   } catch (err) {
     return res.json({ok:-1, message: "Fetching user failed, please try again later"});
   }
@@ -318,7 +321,7 @@ const signup = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(new HttpError('Invalid inputs passed, please check your data.', 422));
+      res.json({ok:-1, message:'Invalid inputs passed, please check your data.' });
     }
 
     const { email, password } = req.body;
@@ -411,6 +414,65 @@ const login = async (req, res, next) => {
 };
 
 // PATCH 
+
+const updateUserInfo = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.json({ok:-1, message:'Invalid inputs passed, please check your data.' });
+  }
+  
+  const { userName, email, password } = req.body;
+
+  const userId = req.params.uid;
+
+  let existingUser;
+  try {
+    // Find the existing user by userId
+    existingUser = await User.findById({ _id: userId });
+    if (!existingUser) {
+      res.json({ok:-1, message:"No matching User ID found! Try again!" });
+    }
+
+    // Check if the updated userName already exists
+    if (userName !== existingUser.userName) {
+      const userWithSameId = await User.findOne({ userName: userName });
+      if (userWithSameId) {
+        res.json({ok:-1, message:"The entered userName already exists!" });
+      }
+    }
+
+    // Check if the updated email already exists
+    if (email !== existingUser.email) {
+      const userWithSameEmail = await User.findOne({ email: email });
+      if (userWithSameEmail) {
+        res.json({ok:-1, message:"The entered email already exists!" });
+      }
+    }
+
+    // Update the password if not default '-'
+    let hashedPassword = existingUser.password;
+    if (password !== '-'){
+      hashedPassword = await bcrypt.hash(password, 12);
+    }
+    
+    // Update user details
+    existingUser.userName = userName;
+    existingUser.email = email;
+    existingUser.password = hashedPassword;
+
+    // Save the updated user
+    await existingUser.save();
+    
+    res.status(200).json({
+      ok:1, 
+      userName: existingUser.userName,
+      email: existingUser.email,
+    });
+  } catch (err) {
+    // Handle database or server errors
+    res.status(200).json({ok:-1, message:"Something went wrong! could not save user details!" });
+  }
+};
 
 // const updateUserInfo = async (req, res, next) => {
 //   const errors = validationResult(req);
@@ -677,8 +739,9 @@ module.exports = {
   // getEmployeesByProjectId,
 
 	signup,
-	login
+	login,
 
+  updateUserInfo
   // updateUserInfo,
   // updateUserPassword,
   // updateUserImage,

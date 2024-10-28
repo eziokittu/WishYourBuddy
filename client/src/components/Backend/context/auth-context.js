@@ -11,6 +11,6 @@ export const AuthContext = createContext({
   
   login: () => {},
   logout: () => {},
-  updateUser: () => {},
+  updateInfo: () => {},
   // updateIsMobileOtpVerified: () => {}
 });

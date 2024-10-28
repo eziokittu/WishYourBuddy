@@ -11,6 +11,7 @@ import ErrorPage from './components/Pages/ErrorPage';
 import CreatePage from './components/Pages/CreatePage';
 import AdminPage from './components/Pages/AdminPage';
 import SettingsPage from './components/Pages/SettingsPage';
+import WishingPage from './components/Pages/WishingPage';
 
 const App = () => {
   const {
@@ -23,7 +24,7 @@ const App = () => {
 
     login,
     logout,
-    updateUser
+    updateInfo
   } = useAuth();
 
   return (
@@ -39,7 +40,7 @@ const App = () => {
 
         login: login,
         logout: logout,
-        updateUser: updateUser
+        updateInfo: updateInfo
       }}
     >
       <BrowserRouter>
@@ -52,6 +53,7 @@ const App = () => {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/settings" element={<SettingsPage />} />
           <Route exact path="/create" element={<CreatePage />} />
+          <Route exact path="/:username/:pagename" element={<WishingPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         {/* Conditional rendering for authorized and unauthorized users */}

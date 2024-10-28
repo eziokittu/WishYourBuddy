@@ -30,7 +30,7 @@ const Header = () => {
 
           {auth.token ? (
             <div>
-              <Link to={"/settings"}><button>{auth.email.split('@')[0]}</button></Link>
+              <Link to={"/settings"}><button>Settings</button></Link>
             </div>
           ) : (
             <div>

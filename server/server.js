@@ -13,15 +13,6 @@ const bcrypt = require('bcryptjs');
 
 // routes
 const userRoutes = require('./routes/user-routes');
-// const empMonthRoutes = require('./routes/empMonth-routes');
-// const projectRoutes = require('./routes/project-routes');
-// const offerRoutes = require('./routes/offer-routes');
-// const appliedRoutes = require('./routes/applied-routes');
-// const domainRoutes = require('./routes/domain-routes');
-// const roleRoutes = require('./routes/role-routes');
-// const certificateRoutes = require('./routes/certificate-routes');
-
-
 
 const app = express();
 
@@ -48,13 +39,6 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/users', userRoutes);
-// app.use('/api/projects', projectRoutes);
-// app.use('/api/offers', offerRoutes);
-// app.use('/api/applied', appliedRoutes);
-// app.use('/api/domains', domainRoutes);
-// app.use('/api/roles', roleRoutes);
-// app.use('/api/empmonth', empMonthRoutes);
-// app.use('/api/certificates', certificateRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route. ['+req.body.url+']', 404);

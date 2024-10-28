@@ -3,8 +3,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
 const pageSchema = new Schema({
-  name: {type: String, required: true },
-  url: {type: String, required: true, default: 'internship' },
+  name: {type: String, required: true, unique: true, default: "page1" },
   fonts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Font' }],
   texts: [{ type: String }],
   images: [{ type: String, required: true, minLength: 4, default: process.env.DB_DEFAULT_IMAGE }],
