@@ -3,25 +3,26 @@ const jwt = require('jsonwebtoken');
 const HttpError = require('../models/http-error');
 
 module.exports = (req, res, next) => {
+
+  // This line is to allow routes present before the checkauth() middleware
   if (req.method === 'OPTIONS') {
     return next();
   }
+
+  // validating the authorization token
   try {
-    // console.log("working 1");
     const token = req.headers.authorization.split(' ')[1]; // Authorization: 'Bearer TOKEN'
-    // console.log("working 2 -- token: "+token);
     if (!token) {
       throw new Error('Authentication failed!');
     }
-    // console.log("working 3");
+
+    // Validating the token
     const decodedToken = jwt.verify(token, process.env.JWT_KEY);
-    // console.log("working 4");
-    req.userData = { userId: decodedToken.userId };
-    // console.log("working 5");
+
+    // adding userData to request body
+    req.userData = { userId: decodedToken.userId, isAdmin: decodedToken.isAdmin };
     next();
-    // console.log("working 6");
   } catch (err) {
-    // console.log("working 7");
     const error = new HttpError('Authentication failed!', 403);
     return next(error);
   }

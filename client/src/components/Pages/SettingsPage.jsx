@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Header from '../PageComponents/Header';
+
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
+import Header from '../PageComponents/Header';
 import ErrorPage from './ErrorPage';
+import AdminCustomizeColour from '../PageComponents/AdminCustomizeColour';
 
 const SettingsPage = () => {
   const auth = useContext(AuthContext);
@@ -80,6 +82,7 @@ const SettingsPage = () => {
           responseData.email,
         );
         console.log('User Info Update successful!');
+        alert('User Info Update successful!');
       }
       else {
         console.log("Error Updating info!");
@@ -94,9 +97,11 @@ const SettingsPage = () => {
     <>
       <Header />
       {auth.token ? (
-        <div className='bg-slate-800 text-gray-300 h-screen flex mt-6'>
+        <div className='bg-slate-800 text-gray-300 min-h-screen flex mt-6'>
           {auth.isAdmin ? (
-            <div>ADMIN settings</div>
+            <div className='w-full'>
+              <AdminCustomizeColour />
+            </div>
           ) : (
             <div className='flex flex-col text-center mx-auto'>
               <p className='my-8 text-2xl underline underline-offset-8'>Update User Info</p>

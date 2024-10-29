@@ -13,6 +13,7 @@ const bcrypt = require('bcryptjs');
 
 // routes
 const userRoutes = require('./routes/user-routes');
+const contentRoutes = require('./routes/content-routes');
 
 const app = express();
 
@@ -39,7 +40,9 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/content', contentRoutes);
 
+// Default Route
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route. ['+req.body.url+']', 404);
   throw error;

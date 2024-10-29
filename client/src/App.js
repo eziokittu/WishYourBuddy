@@ -9,7 +9,6 @@ import Signup from "./components/Pages/Signup";
 import DemoPage from './components/Pages/DemoPage';
 import ErrorPage from './components/Pages/ErrorPage';
 import CreatePage from './components/Pages/CreatePage';
-import AdminPage from './components/Pages/AdminPage';
 import SettingsPage from './components/Pages/SettingsPage';
 import WishingPage from './components/Pages/WishingPage';
 
@@ -48,7 +47,6 @@ const App = () => {
           <Route exact path="/" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
           <Route exact path="/demo" element={<DemoPage />} />
-          <Route exact path="/admin" element={<AdminPage />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/settings" element={<SettingsPage />} />

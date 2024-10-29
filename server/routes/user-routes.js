@@ -1,6 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const userController = require('../controller/user-controller');
+const checkAuth = require('../middlewares/check-auth');
 const router = express.Router();
 
 // GET Routes
@@ -10,6 +11,11 @@ router.get(
 );
 
 // POST Routes
+router.post('/login', userController.login);
+
+// Added middleware to check if authentication token is VALID
+router.use(checkAuth);
+
 router.post(
   '/signup',
   [
@@ -20,7 +26,7 @@ router.post(
   ],
   userController.signup
 );
-router.post('/login', userController.login);
+
 
 // PATCH Routes
 router.patch(
