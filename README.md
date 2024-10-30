@@ -1,2 +1,2 @@
-<h1>Wish Your Buddy</h1><br>
-<p>This is a Birthday wishing website where we can customizr the images, text, song and many more and then generate the website. I will be making a server side with authentication from firebase so that users can create their own website for free and keep them LIVE for a fixed number of hours. I think of adding a payment system later on to the feature / time to keep live and many more.</p>
+<h1>Wish-Your-Buddy</h1><br>
+<p>This is a Full Stack MERN "Wishing website" where we can customize the images, text, background, music and many more and then generate a custom website to be shared with others. It will be having authentication so that users can create their own dynamic websites. I will be having many exciting features like showing Google Ads and adding a payment system and many more later on to my project. i may buy a domain to commercialize this website if everything works well!</p>

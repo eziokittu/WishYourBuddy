@@ -15,7 +15,7 @@ router.get(
 );
 
 // Added middleware to check if authentication token is VALID
-// router.use(checkAuth);
+router.use(checkAuth);
 
 // POST Routes
 router.post(

@@ -100,7 +100,7 @@ const SettingsPage = () => {
         <div className='bg-slate-800 text-gray-300 min-h-screen flex mt-6'>
           {auth.isAdmin ? (
             <div className='w-full'>
-              <AdminCustomizeColour />
+              <AdminCustomizeColour token={auth.token} />
             </div>
           ) : (
             <div className='flex flex-col text-center mx-auto'>

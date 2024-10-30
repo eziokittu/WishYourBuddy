@@ -105,4 +105,4 @@ const definedColours = [
 const colourNames = ["white","black","red", "green","blue", "yellow", "indigo", "slate", "gray", "zinc", "neutral", "stone", "orange", "lime", "emerald", "teal", "cyan", "sky", "violet", "purple", "fuchsia", "pink", "rose", "amber"] 
 const colourNumbers = ["100", "200", "300", "400", "500", "600", "700", "800", "900", "950"];
 
-export default { definedTextColours, definedBackgroundColours, definedBorderColours, definedColours, colourNames, colourNumbers };
+export default { definedTextColours, definedBackgroundColours, definedBorderColours };

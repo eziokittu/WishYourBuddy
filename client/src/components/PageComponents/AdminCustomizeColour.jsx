@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import ColourPalette from '../Reusable/Colours/ColourPalette';
 
-const AdminCustomizeColour = () => {
+const AdminCustomizeColour = ({token}) => {
   const [inputColourName, setInputColourName] = useState('black');
   // const [inputColourCode, setInputColourCode] = useState('bg-black');
   const { sendRequest } = useHttpClient();
@@ -46,7 +46,8 @@ const AdminCustomizeColour = () => {
           name: inputColourName
         }),
         {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
         }
       );
       if (responseData.ok === 1) {
@@ -67,7 +68,7 @@ const AdminCustomizeColour = () => {
   };
 
   const [loadedColours, setLoadedColours] = useState([]);
-  
+
   const getAllColours = async event => {
     // event.preventDefault();
 
@@ -86,6 +87,37 @@ const AdminCustomizeColour = () => {
       }
     } catch (err) {
       console.log('Something went wrong while fetching colours! - ' + err);
+    }
+  };
+
+  const deleteColour = async (colourToBeDeleted) => {
+    try {
+      // console.log(inputEmail, inputPassword);
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/content/delete/colour`,
+        'DELETE',
+        JSON.stringify({
+          name: colourToBeDeleted
+        }),
+        {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + token
+        }
+      );
+      if (responseData.ok === 1) {
+        console.log('Deleting Colour successful!');
+
+        // Refresh page after 1.5 s
+        setTimeout(() => {
+          window.location.reload(false);
+        }, 1500);
+      }
+      else {
+        console.log("Error Deleting Colour!");
+        alert("Error Deleting Colour! - " + responseData.message);
+      }
+    } catch (err) {
+      console.log('Error Deleting Colour! --\n' + err);
     }
   };
 
@@ -138,7 +170,7 @@ const AdminCustomizeColour = () => {
 
       {/* View all Colours and delete */}
       {loadedColours ? (
-        <ColourPalette colours={loadedColours} heading={"Colour Palette"} />
+        <ColourPalette colours={loadedColours} heading={"Colour Palette"} deleteColour={deleteColour} isAdmin={true} />
       ) : (
         <p className='text-center'>Loading available Colours / No colours available!</p>
       )}
