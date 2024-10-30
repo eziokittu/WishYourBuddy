@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import ColourPalette from '../Reusable/Colours/ColourPalette';
 
-const AdminCustomizeColour = ({token}) => {
-  const [inputColourName, setInputColourName] = useState('black');
-  // const [inputColourCode, setInputColourCode] = useState('bg-black');
+const AdminCustomizeColour = ({auth}) => {
   const { sendRequest } = useHttpClient();
+  const [inputColourName, setInputColourName] = useState('black');
 
   // function to check for invalid inputs and return the list of error message strings
   const validateInput = () => {
@@ -17,14 +16,7 @@ const AdminCustomizeColour = ({token}) => {
       alerts.push(`Enter a valid colour name (between 1-36 letters, only alphanumeric and '-' allowed)`);
     }
 
-    // Colour Code Validation
-    // const colourHexRegex = /^#[0-9a-fA-F]{6,8}$/;
-    // const colourCodeRegex = /^[a-z0-9-]{1,36}$/;
-    // if (!inputColourCode.trim() || !colourCodeRegex.test(inputColourCode)) {
-    //   alerts.push(`Enter a valid colour code (between 1-36 letters, only small letters, numbers and '-' allowed)`);
-    // }
-
-    return alerts; // Return the alerts array directly
+    return alerts;
   };
 
   const addColour = async event => {
@@ -40,14 +32,14 @@ const AdminCustomizeColour = ({token}) => {
     try {
       // console.log(inputEmail, inputPassword);
       const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/content/post/colour`,
+        `${process.env.REACT_APP_BACKEND_URL}/colours/post/colour`,
         'POST',
         JSON.stringify({
           name: inputColourName
         }),
         {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + auth.token
         }
       );
       if (responseData.ok === 1) {
@@ -67,41 +59,18 @@ const AdminCustomizeColour = ({token}) => {
     }
   };
 
-  const [loadedColours, setLoadedColours] = useState([]);
-
-  const getAllColours = async event => {
-    // event.preventDefault();
-
-    try {
-      // console.log(inputEmail, inputPassword);
-      const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/content/get/colour`,
-      );
-      if (responseData.ok === 1) {
-        console.log('Fetching all colours successful!');
-        setLoadedColours(responseData.colours);
-      }
-      else {
-        console.log("Something went wrong! Could not fetch all colours! - " + responseData.message);
-        alert("Something went wrong! Could not fetch all colours! - " + responseData.message);
-      }
-    } catch (err) {
-      console.log('Something went wrong while fetching colours! - ' + err);
-    }
-  };
-
   const deleteColour = async (colourToBeDeleted) => {
     try {
       // console.log(inputEmail, inputPassword);
       const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/content/delete/colour`,
+        `${process.env.REACT_APP_BACKEND_URL}/colours/delete/colour`,
         'DELETE',
         JSON.stringify({
           name: colourToBeDeleted
         }),
         {
           'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + token
+          Authorization: 'Bearer ' + auth.token
         }
       );
       if (responseData.ok === 1) {
@@ -120,11 +89,6 @@ const AdminCustomizeColour = ({token}) => {
       console.log('Error Deleting Colour! --\n' + err);
     }
   };
-
-  // Runs one time
-  useEffect(() => {
-    getAllColours();
-  }, [])
 
   return (
     <div className='flex flex-col items-center mx-auto w-full gap-4 my-4'>
@@ -169,11 +133,7 @@ const AdminCustomizeColour = ({token}) => {
       </form>
 
       {/* View all Colours and delete */}
-      {loadedColours ? (
-        <ColourPalette colours={loadedColours} heading={"Colour Palette"} deleteColour={deleteColour} isAdmin={true} />
-      ) : (
-        <p className='text-center'>Loading available Colours / No colours available!</p>
-      )}
+      <ColourPalette heading={"Colour Palette"} deleteColour={deleteColour} isAdmin={auth.isAdmin} />
     </div>
   )
 }

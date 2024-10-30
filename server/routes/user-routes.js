@@ -13,9 +13,6 @@ router.get(
 // POST Routes
 router.post('/login', userController.login);
 
-// Added middleware to check if authentication token is VALID
-router.use(checkAuth);
-
 router.post(
   '/signup',
   [
@@ -27,6 +24,8 @@ router.post(
   userController.signup
 );
 
+// Added middleware to check if authentication token is VALID
+// router.use(checkAuth);
 
 // PATCH Routes
 router.patch(

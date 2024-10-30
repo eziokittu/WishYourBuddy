@@ -1,17 +1,17 @@
 const express = require('express');
 const { check } = require('express-validator');
-const contentController = require('../controller/content-controller');
+const colourController = require('../controller/colour-controller');
 const checkAuth = require('../middlewares/check-auth');
 const router = express.Router();
 
 // GET Routes
 router.get(
   '/get/colour/',
-  contentController.getColours
+  colourController.getColours
 );
 router.get(
   '/get/colour/:cid',
-  contentController.getColour
+  colourController.getColour
 );
 
 // Added middleware to check if authentication token is VALID
@@ -23,19 +23,19 @@ router.post(
   check('name')
     .not()
     .isEmpty(),
-  contentController.addColour
+  colourController.addColour
 );
 
 router.post(
   '/post/colours',
-  contentController.addColours
+  colourController.addColours
 )
 
 // DELETE Routes
 
 router.delete(
   '/delete/colour',
-  contentController.deleteColourByName
+  colourController.deleteColourByName
 )
 
 module.exports = router;

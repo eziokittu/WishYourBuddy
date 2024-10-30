@@ -4,11 +4,12 @@ const Schema = mongoose.Schema;
 
 const pageSchema = new Schema({
   name: {type: String, required: true, unique: true, default: "page1" },
-  fonts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Font' }],
-  texts: [{ type: String }],
-  images: [{ type: String, required: true, minLength: 4, default: process.env.DB_DEFAULT_IMAGE }],
-  date_start: {type: Date, required: true, default: Date.now() },
-  date_end: {type: Date, required: true, default: Date.now() + 1000*60*60*24*2 } // 2 days
+  background: {type: mongoose.Types.ObjectId, required: true, ref: 'Background' }
+  // fonts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Font' }],
+  // texts: [{ type: String }],
+  // images: [{ type: String, required: true, minLength: 4, default: process.env.DB_DEFAULT_IMAGE }],
+  // date_start: {type: Date, required: true, default: Date.now() },
+  // date_end: {type: Date, required: true, default: Date.now() + 1000*60*60*24*2 } // 2 days
 });
 
 pageSchema.plugin(uniqueValidator);

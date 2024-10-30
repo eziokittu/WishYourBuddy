@@ -8,6 +8,8 @@ const userSchema = new Schema({
     isAdmin: {type: Boolean, required: true, default: false },
     isPaid: {type: Boolean, required: true, default: false },
     userName: { type: String, required: true, unique: true },
+
+    pages: [{type: mongoose.Types.ObjectId, ref: 'Page' }]
 });
 
 userSchema.plugin(uniqueValidator);

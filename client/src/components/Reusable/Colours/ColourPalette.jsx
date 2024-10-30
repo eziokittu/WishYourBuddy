@@ -1,8 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHttpClient } from '../../Backend/hooks/http-hook';
 import "../../../data/definedColours";
 
-const ColourPalette = ({ heading, colours, deleteColour, isAdmin }) => {
+const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }) => {
   const [selectedColour, setSelectedColour] = useState('white');
+  const [loadedColours, setLoadedColours] = useState([]);
+  const { sendRequest } = useHttpClient();
+
+  const getAllColours = async event => {
+    // event.preventDefault();
+
+    try {
+      // console.log(inputEmail, inputPassword);
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/colours/get/colour`,
+      );
+      if (responseData.ok === 1) {
+        console.log('Fetching all colours successful!');
+        setLoadedColours(responseData.colours);
+      }
+      else {
+        console.log("Something went wrong! Could not fetch all colours! - " + responseData.message);
+        alert("Something went wrong! Could not fetch all colours! - " + responseData.message);
+      }
+    } catch (err) {
+      console.log('Something went wrong while fetching colours! - ' + err);
+    }
+  };
+
+  // Runs one time
+  useEffect(() => {
+    getAllColours();
+  }, [])
 
   return (
     <div className='flex flex-col items-center border-2'>
@@ -13,8 +42,9 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin }) => {
       </div>
 
       {/* Grid of all colours */}
+      {loadedColours ? (
       <div className="grid grid-cols-10 gap-0 p-4 w-fit">
-        {colours.map((colour) => {
+        {loadedColours.map((colour) => {
           if (colour.name !== "white" && colour.name !== "black") {
             return (
               <div
@@ -22,7 +52,12 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin }) => {
                 className={`bg-${colour.name}
                 w-6 h-6 hover:scale-[2] cursor-pointer
                 border border-black hover:border-black hover:rounded-full`}
-                onClick={() => setSelectedColour(colour.name)}
+                onClick={
+                  () => {
+                    setSelectedColour(colour.name);
+                    chooseColour(colour.name);
+                  }
+                }
               ></div>
             );
           }
@@ -40,10 +75,13 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin }) => {
           onClick={() => setSelectedColour('black')}
         ></div>
       </div>
+      ) : (
+        <p className='text-center'>Loading available Colours / No colours available!</p>
+      )}
 
       {/* Selected Colour */}
       <div className='flex flex-row w-full px-4 mb-4 items-center justify-between'>
-        <div className={`w-12 h-12 bg-${selectedColour}`}></div>
+        <div className={`w-12 h-12 bg-${selectedColour} border border-white`}></div>
         <p className='text-lg'>{selectedColour}</p>
 
         {/* Delete the colour button */}

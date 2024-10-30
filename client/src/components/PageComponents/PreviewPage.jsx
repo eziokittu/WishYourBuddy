@@ -2,19 +2,17 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Backend/context/auth-context';
 import CustomButton1 from '../Reusable/Buttons/CustomButton1';
+import BackgroundPreviewArea from '../Reusable/Backgrounds/BackgroundPreviewArea';
 
 const PreviewPage = () => {
   const auth = useContext(AuthContext);
   const [pageName, setPageName] = useState("page1");
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col items-center gap-4'>
       {/* Heading */}
-      <div className='text-center mt-8 mb-4'>
+      <div className='text-center mt-8'>
         <p className='text-2xl underline underline-offset-8'>Preview your page</p>
-      </div>
-      <div className='flex flex-col text-center'>
-        All the contents
       </div>
 
       {/* Create and view Page */}
@@ -38,6 +36,9 @@ const PreviewPage = () => {
         {/* Create button */}
         <CustomButton1 name={`Create and View Page`} link={() => { window.open(`/${auth.userName}/${pageName}`, '_blank') }}/>
       </div>
+
+      {/* Background Preview Area */}
+      <BackgroundPreviewArea />
     </div>
   )
 }

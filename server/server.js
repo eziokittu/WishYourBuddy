@@ -13,7 +13,7 @@ const bcrypt = require('bcryptjs');
 
 // routes
 const userRoutes = require('./routes/user-routes');
-const contentRoutes = require('./routes/content-routes');
+const colourRoutes = require('./routes/colour-routes');
 
 const app = express();
 
@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/content', contentRoutes);
+app.use('/api/colours', colourRoutes);
 
 // Default Route
 app.use((req, res, next) => {

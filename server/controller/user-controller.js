@@ -340,22 +340,24 @@ const signup = async (req, res, next) => {
       email: email,
       password: hashedPassword,
       userName: generatedUserName,
+      pages: []
     });
-
+    
     await createdUser.save();
     const token = jwt.sign(
       { userId: createdUser.id, email: createdUser.email },
       process.env.JWT_KEY,
-      { expiresIn: '1hr' }
+      { expiresIn: '24hr' }
     );
-
-    res.status(201).json({
+    
+    return res.status(201).json({
+      ok: 1,
       userId: createdUser.id,
       userName: createdUser.userName,
       email: createdUser.email,
       token: token,
       isAdmin: false,
-      isPaid: false,
+      isPaid: false
     });
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -396,7 +398,7 @@ const login = async (req, res, next) => {
     token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
       process.env.JWT_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
   } catch (err) {
     return res.json({ok:-1, message: "Logging in failed, please try again later."})
@@ -409,7 +411,7 @@ const login = async (req, res, next) => {
     token: token,
     isAdmin: existingUser.isAdmin,
     isPaid: existingUser.isPaid,
-    email: existingUser.email,
+    email: existingUser.email
   });
 };
 

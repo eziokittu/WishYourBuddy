@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import ImageViewer3 from "../Reusable/ImageViewer3";
+import ImageViewer3 from "../Reusable/ImageGalleries/ImageViewer3";
 import AudioPlayer from 'react-h5-audio-player';
 
 import allData from '../../data/allData.json';

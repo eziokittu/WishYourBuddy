@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-import particlesData from '../../data/particlesData2.json';
+import particlesData from '../../../data/particlesData2.json';
 
 const Background = () => {
   const [init, setInit] = useState(false);
