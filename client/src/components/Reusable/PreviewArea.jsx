@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import PageElement from "./PageElement";
 
-const PreviewArea = () => {
+const PreviewArea = (menuOption, optionChosen) => {
+  useEffect(() => {
+    console.log(menuOption, " ", optionChosen);
+  }, [menuOption, optionChosen])
+
   return (
-    <div className='flex flex-col items-center gap-4 border border-white m-4'>
+    <div className='flex flex-col items-center gap-2 xsm:gap-4 border border-white m-2 xsm:m-4'>
       {/* Heading */}
       <p>Page Preview</p>
 

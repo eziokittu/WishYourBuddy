@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colours: {
+        "myGreen1": "green-400",
+        "myGreen2": "green-600",
+      },
+
       screens: {
         '2xsm': '300px',
         'xsm': '430px',

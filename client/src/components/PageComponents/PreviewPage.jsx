@@ -1,16 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../Backend/context/auth-context';
-import CustomButton1 from '../Reusable/Buttons/CustomButton1';
+import React from 'react';
 import BackgroundPreviewArea from '../Reusable/Backgrounds/BackgroundPreviewArea';
 import TextPreviewArea from '../Reusable/Texts/TextPreviewArea';
 import MusicPreviewArea from '../Reusable/Music/MusicPreviewArea';
 import ImageGalleryPreviewArea from '../Reusable/ImageGalleries/ImageGalleryPreviewArea';
 import PreviewArea from '../Reusable/PreviewArea';
 
-const PreviewPage = ({ menuOption }) => {
-  const auth = useContext(AuthContext);
-  const [pageName, setPageName] = useState("page1");
-
+const PreviewPage = ({ menuOption, optionChosen }) => {
   return (
     <div className='flex flex-col items-center gap-4 w-full'>
       {/* Heading */}
@@ -20,30 +15,37 @@ const PreviewPage = ({ menuOption }) => {
 
       {/* Component Preview Areas */}
       <div>
+        {/* Default Preview Area */}
+        {menuOption === 0 && (
+          <div 
+            className='flex flex-col items-center gap-4 border border-white p-2 xsm:p-4'
+          >Select a component from the sidebar</div>
+        )}
+
         {/* Background Preview Area */}
         {menuOption === 1 && (
-          <BackgroundPreviewArea />
+          <BackgroundPreviewArea optionChosen={optionChosen} />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 2 && (
-          <TextPreviewArea />
+          <TextPreviewArea optionChosen={optionChosen} />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 3 && (
-          <ImageGalleryPreviewArea />
+          <ImageGalleryPreviewArea optionChosen={optionChosen} />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 4 && (
-          <MusicPreviewArea />
+          <MusicPreviewArea optionChosen={optionChosen} />
         )}
       </div>
 
       {/* Page Preview Area */}
       <div className='mx-4 w-full'>
-        <PreviewArea />
+        <PreviewArea menuOption={menuOption} optionChosen={optionChosen} />
       </div>
 
       {/* Create and view Page */}

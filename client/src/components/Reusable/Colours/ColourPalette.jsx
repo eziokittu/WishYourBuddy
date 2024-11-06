@@ -34,14 +34,14 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }
   }, [])
 
   return (
-    <div className='flex flex-col items-center border-2 gap-2'>
+    <div className='flex flex-col items-center border-2 gap-1 xsm:gap-2'>
 
       {/* Heading */}
       <div>
         <p className='text-xl border-b-2  vorder-white px-4 py-2 rounded-full'>{heading}</p>
-      </div>w-3 h-3 xsm:
-
-  xsm:    {/* Grid of all colours */}
+      </div>    
+      
+      {/* Grid of all colours */}
       {loadedColours ? (
       <div className="flex flex-col flex-wrap h-32 xsm:h-40">
         {loadedColours.map((colour) => {

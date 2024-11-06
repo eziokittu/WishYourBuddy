@@ -1,0 +1,37 @@
+{
+  "default": {
+    "menu_name": "",
+    "menu_option": 0,
+    "options": [],
+    "keys": [],
+    "option_values": []
+  },
+  "backgrounds": {
+    "menu_name": "Backgrounds",
+    "menu_option": 1,
+    "options": ["Solid Colour", "Snow Fall", "Stars"],
+    "keys": ["bg-1", "bg-2", "bg-3"],
+    "option_values": [0,1,2]
+  },
+  "texts": {
+    "menu_name": "Texts",
+    "menu_option": 2,
+    "options": ["Default Text"],
+    "keys": ["text-1"],
+    "option_values": [0]
+  },
+  "gallerys": {
+    "menu_name": "Image Gallerys",
+    "menu_option": 3,
+    "options": ["Gallery 1", "Gallery 2", "Gallery 3"],
+    "keys": ["gallery-1", "gallery-2", "gallery-3"],
+    "option_values": [0,1,2]
+  },
+  "music": {
+    "menu_name": "Music",
+    "menu_option": 4,
+    "options": ["Default Music"],
+    "keys": ["music-1"],
+    "option_values": [0]
+  }
+}
