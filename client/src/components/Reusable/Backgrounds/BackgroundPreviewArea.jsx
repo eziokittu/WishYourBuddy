@@ -12,7 +12,7 @@ const BackgroundPreviewArea = () => {
   return (
     <div className='flex flex-col items-center gap-4 border border-white p-4'>
       {/* Heading */}
-      <p>Background Preview</p>
+      <p>Background Preview Area</p>
 
       {/* Background */}
       <div className={`w-[200px] h-[200px] bg-${chosenColour} border border-white`} />

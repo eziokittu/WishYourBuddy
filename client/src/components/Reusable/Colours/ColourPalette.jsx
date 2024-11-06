@@ -34,23 +34,23 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }
   }, [])
 
   return (
-    <div className='flex flex-col items-center border-2'>
+    <div className='flex flex-col items-center border-2 gap-2'>
 
       {/* Heading */}
       <div>
         <p className='text-xl border-b-2  vorder-white px-4 py-2 rounded-full'>{heading}</p>
-      </div>
+      </div>w-3 h-3 xsm:
 
-      {/* Grid of all colours */}
+  xsm:    {/* Grid of all colours */}
       {loadedColours ? (
-      <div className="grid grid-cols-10 gap-0 p-4 w-fit">
+      <div className="flex flex-col flex-wrap h-32 xsm:h-40">
         {loadedColours.map((colour) => {
           if (colour.name !== "white" && colour.name !== "black") {
             return (
               <div
                 key={colour.name}
                 className={`bg-${colour.name}
-                w-6 h-6 hover:scale-[2] cursor-pointer
+                w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
                 border border-black hover:border-black hover:rounded-full`}
                 onClick={
                   () => {
@@ -64,13 +64,13 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }
         })}
         <div
           className={`bg-white
-          w-6 h-6 hover:scale-[2] cursor-pointer
+          w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
           border border-black hover:border-black hover:rounded-full`}
           onClick={() => setSelectedColour('white')}
         ></div>
         <div
           className={`bg-black
-          w-6 h-6 hover:scale-[2] cursor-pointer
+          w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
           border border-black hover:border-black hover:rounded-full`}
           onClick={() => setSelectedColour('black')}
         ></div>
@@ -80,7 +80,7 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }
       )}
 
       {/* Selected Colour */}
-      <div className='flex flex-row w-full px-4 mb-4 items-center justify-between'>
+      <div className='flex flex-row w-full items-center justify-between'>
         <div className={`w-12 h-12 bg-${selectedColour} border border-white`}></div>
         <p className='text-lg'>{selectedColour}</p>
 
