@@ -1,35 +1,34 @@
 import React from 'react';
+import "../../data/definedColours";
 
-const coloursToBeUsed = [
-  "bg-red-900",
-  "bg-green-900",
-  "bg-blue-900",
-];
+const gg = [
+  "bg-white"
+]
 
-const PageElement = ({ menuOption, optionChosen, key, id, content, colour, children }) => {
+const PageElement = ({ type, myKey, myId, content, colour, children }) => {
 
   // Backgrounds
-  if (menuOption === 1) {
-    if (optionChosen === 0) {
-      return (
-        <div 
-          key={key}
-          id={id} 
-          className={` w-[400px] h-fit ${colour ? `bg-${colour}` : 'bg-stone-950'} p-4`}
-        >{children}</div>
-      )
-    }
+  if (type === 'background') {
+    return (
+      <div
+        key={myKey}
+        id={myId}
+        className={` w-[400px] h-fit ${colour ? `bg-${colour}` : 'bg-stone-950'} p-4`}
+      >{children}</div>
+    )
   }
 
   // Texts
-  else if (menuOption === 2) {
-    if (optionChosen === 0) {
-      return (
-        <div className={`text-justify ${colour ? `text-${colour}` : 'text-black'} `}>
-          <p>{content}</p>
-        </div>
-      );
-    }
+  else if (type === 'text') {
+    return (
+      <div
+        key={myKey}
+        id={myId}
+        className={`text-xl text-center ${colour ? `text-${colour}` : 'text-black'} `}
+      >
+        <p>{content}</p>
+      </div>
+    );
   }
 
   // Image Gallerys

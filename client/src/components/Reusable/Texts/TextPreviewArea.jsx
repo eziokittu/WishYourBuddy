@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ColourPalette from '../Colours/ColourPalette';
+import "../../../data/definedColours";
 import optionData from '../../../data/optionData.json';
 
 const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextColour, addTextElement }) => {
@@ -7,8 +8,8 @@ const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextCo
 
   // Callback to choose colour from the colour palette
   const chooseColour = (selectedColour) => {
-    setInputTextColour(() => {return selectedColour});
-    setChosenColour(() => {return selectedColour});
+    setInputTextColour(() => { return selectedColour });
+    setChosenColour(() => { return selectedColour });
   }
 
   return (
@@ -22,10 +23,10 @@ const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextCo
       {/* Preview Text */}
       <div className={`text-lg text-${chosenColour} border border-white p-4`}>{inputText}</div>
 
-      {/* Text Input */}
+      {/* Text Area */}
       <div className='flex flex-col mx-auto'>
         <label for="input-text" className="w-fit">Your Text</label>
-        <input
+        <textarea
           onChange={(event) => setInputText(event.target.value)}
           type="text"
           name="input-text"
@@ -39,7 +40,7 @@ const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextCo
       <ColourPalette heading={"Choose Colour"} chooseColour={chooseColour} />
 
       {/* Add component to page */}
-      <button 
+      <button
         className='bg-green-800 hover:bg-green-700 px-4 py-2 text-white'
         onClick={addTextElement}
       >Add Text</button>

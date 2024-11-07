@@ -87,7 +87,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
           />
         )}
 
-        {/* Background Preview Area */}
+        {/* Text Preview Area */}
         {menuOption === 2 && (
           <TextPreviewArea 
             optionChosen={optionChosen} 
@@ -98,14 +98,14 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
           />
         )}
 
-        {/* Background Preview Area */}
+        {/* Image Gallery Preview Area */}
         {menuOption === 3 && (
           <ImageGalleryPreviewArea 
             optionChosen={optionChosen} 
           />
         )}
 
-        {/* Background Preview Area */}
+        {/* Music Preview Area */}
         {menuOption === 4 && (
           <MusicPreviewArea 
             optionChosen={optionChosen} 
@@ -115,7 +115,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
 
       {/* Page Preview Area */}
       <div className='mx-4 w-full'>
-        <PreviewArea pageElements={pageElements} menuOption={menuOption} optionChosen={optionChosen} />
+        <PreviewArea pageElements={pageElements} />
       </div>
     </div>
   )

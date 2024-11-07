@@ -3,7 +3,7 @@ import ColourPalette from '../Colours/ColourPalette';
 import "../../../data/definedColours";
 import optionData from '../../../data/optionData.json';
 
-const BackgroundPreviewArea = ({optionChosen, inputBackgroundColour, setInputBackgroundColour, updateBackgroundElement}) => {
+const BackgroundPreviewArea = ({optionChosen, setInputBackgroundColour, updateBackgroundElement}) => {
   const [chosenColour, setChosenColour] = useState('transparent');
 
   // Callback to choose colour from the colour palette
@@ -31,7 +31,7 @@ const BackgroundPreviewArea = ({optionChosen, inputBackgroundColour, setInputBac
       <button 
         className='bg-green-800 hover:bg-green-700 px-4 py-2 text-white'
         onClick={updateBackgroundElement}
-      >Add Background</button>
+      >Update Background</button>
     </div>
   )
 }
