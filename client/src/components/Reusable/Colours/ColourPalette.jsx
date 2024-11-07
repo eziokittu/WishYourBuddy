@@ -3,7 +3,7 @@ import { useHttpClient } from '../../Backend/hooks/http-hook';
 import "../../../data/definedColours";
 
 const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
-  const [selectedColour, setSelectedColour] = useState('white');
+  const [selectedColour, setSelectedColour] = useState('transparent');
   const [loadedColours, setLoadedColours] = useState([]);
   const { sendRequest } = useHttpClient();
 

@@ -1,10 +1,12 @@
 import React from 'react'
 
-const Background_SolidColour = ({colour, children}) => {
+const Background_SolidColour = ({ myKey, myId, colour, children }) => {
   return (
-    <div className={`fixed w-full h-full top-0 z-0 ${colour ? `bg-${colour}` : 'bg-stone-950'}`}>
-      {children}
-    </div>
+    <div
+      key={myKey}
+      id={myId}
+      className={` w-full min-h-[300px] ${colour ? `bg-${colour}` : 'bg-stone-950'} p-4`}
+    >{children}</div>
   )
 }
 

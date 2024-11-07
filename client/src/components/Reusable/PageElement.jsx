@@ -1,5 +1,7 @@
 import React from 'react';
 import "../../data/definedColours";
+import Text_Default from './Texts/Text_Default';
+import Background_SolidColour from './Backgrounds/Background_SolidColour';
 
 const gg = [
   "bg-white"
@@ -10,24 +12,24 @@ const PageElement = ({ type, myKey, myId, content, colour, children }) => {
   // Backgrounds
   if (type === 'background') {
     return (
-      <div
-        key={myKey}
-        id={myId}
-        className={` w-[400px] h-fit ${colour ? `bg-${colour}` : 'bg-stone-950'} p-4`}
-      >{children}</div>
+      <Background_SolidColour
+        myId={myId}
+        myKey={myKey}
+        colour={colour}
+        children={children}
+      />
     )
   }
 
   // Texts
   else if (type === 'text') {
     return (
-      <div
-        key={myKey}
-        id={myId}
-        className={`text-xl text-center ${colour ? `text-${colour}` : 'text-black'} `}
-      >
-        <p>{content}</p>
-      </div>
+      <Text_Default 
+        myId={myId}
+        myKey={myKey}
+        colour={colour}
+        content={content}
+      />
     );
   }
 
