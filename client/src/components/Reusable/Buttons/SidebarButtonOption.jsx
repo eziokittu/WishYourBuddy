@@ -1,9 +1,9 @@
 import React from 'react'
 
-const SidebarButtonOption = ({ title, key, chooseOption, optionValue }) => {
+const SidebarButtonOption = ({ title, myKey, chooseOption, optionValue }) => {
   return (
     <div
-      key={key}
+      key={myKey}
       className='flex flex-row justify-between items-center text-center bg-slate-900 text-slate-200 rounded-3xl py-2 pl-4 pr-2'
     >
       <button className='text-lg'>{title}</button>

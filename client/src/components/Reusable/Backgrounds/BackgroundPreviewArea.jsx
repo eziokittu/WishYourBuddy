@@ -3,11 +3,14 @@ import ColourPalette from '../Colours/ColourPalette';
 import "../../../data/definedColours";
 import optionData from '../../../data/optionData.json';
 
-const BackgroundPreviewArea = ({optionChosen}) => {
-  const [chosenColour, setChosenColour] = useState('none');
+const BackgroundPreviewArea = ({optionChosen, inputBackgroundColour, setInputBackgroundColour, updateBackgroundElement}) => {
+  const [chosenColour, setChosenColour] = useState('transparent');
 
+  // Callback to choose colour from the colour palette
   const chooseColour = (selectedColour) => {
-    setChosenColour(selectedColour);
+    setInputBackgroundColour(() => {return selectedColour});
+    setChosenColour(() => {return selectedColour});
+    // console.log("Colour Selected: "+selectedColour);
   }
 
   return (
@@ -19,15 +22,16 @@ const BackgroundPreviewArea = ({optionChosen}) => {
       </div>
 
       {/* Selected Background */}
-      <div className={`w-[200px] h-[200px] border border-white`}>
-        
-      </div>
+      <div className={`w-[200px] h-[200px] bg-${chosenColour} border border-white`} />
 
       {/* Select Colour */}
       <ColourPalette heading={"Choose Colour"} chooseColour={chooseColour} />
 
       {/* Add component to page */}
-      <button className='text-green-400'>Add Background</button>
+      <button 
+        className='bg-green-800 hover:bg-green-700 px-4 py-2 text-white'
+        onClick={updateBackgroundElement}
+      >Add Background</button>
     </div>
   )
 }

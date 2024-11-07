@@ -1,6 +1,7 @@
 const definedBackgroundColours = [
   "bg-white",
   "bg-black",
+  "bg-transparent",
   "bg-red", "bg-red-100", "bg-red-200", "bg-red-300", "bg-red-400", "bg-red-500", "bg-red-600", "bg-red-700", "bg-red-800", "bg-red-900", "bg-red-950",
   "bg-green", "bg-green-100", "bg-green-200", "bg-green-300", "bg-green-400", "bg-green-500", "bg-green-600", "bg-green-700", "bg-green-800", "bg-green-900", "bg-green-950",
   "bg-blue", "bg-blue-100", "bg-blue-200", "bg-blue-300", "bg-blue-400", "bg-blue-500", "bg-blue-600", "bg-blue-700", "bg-blue-800", "bg-blue-900", "bg-blue-950",
@@ -27,6 +28,7 @@ const definedBackgroundColours = [
 const definedBorderColours = [
   "border-white",
   "border-black",
+  "border-transparent",
   "border-red", "border-red-100", "border-red-200", "border-red-300", "border-red-400", "border-red-500", "border-red-600", "border-red-700", "border-red-800", "border-red-900", "border-red-950",
   "border-green", "border-green-100", "border-green-200", "border-green-300", "border-green-400", "border-green-500", "border-green-600", "border-green-700", "border-green-800", "border-green-900", "border-green-950",
   "border-blue", "border-blue-100", "border-blue-200", "border-blue-300", "border-blue-400", "border-blue-500", "border-blue-600", "border-blue-700", "border-blue-800", "border-blue-900", "border-blue-950",
@@ -53,6 +55,7 @@ const definedBorderColours = [
 const definedTextColours = [
   "text-white",
   "text-black",
+  "text-transparent",
   "text-red", "text-red-100", "text-red-200", "text-red-300", "text-red-400", "text-red-500", "text-red-600", "text-red-700", "text-red-800", "text-red-900", "text-red-950",
   "text-green", "text-green-100", "text-green-200", "text-green-300", "text-green-400", "text-green-500", "text-green-600", "text-green-700", "text-green-800", "text-green-900", "text-green-950",
   "text-blue", "text-blue-100", "text-blue-200", "text-blue-300", "text-blue-400", "text-blue-500", "text-blue-600", "text-blue-700", "text-blue-800", "text-blue-900", "text-blue-950",
@@ -99,7 +102,7 @@ const definedTextColours = [
 //   "fuchsia-100", "fuchsia-200", "fuchsia-300", "fuchsia-400", "fuchsia-500", "fuchsia-600", "fuchsia-700", "fuchsia-800", "fuchsia-900", "fuchsia-950",
 //   "pink-100", "pink-200", "pink-300", "pink-400", "pink-500", "pink-600", "pink-700", "pink-800", "pink-900", "pink-950",
 //   "rose-100", "rose-200", "rose-300", "rose-400", "rose-500", "rose-600", "rose-700", "rose-800", "rose-900", "rose-950",
-//   "white", "black",
+//   "transparent","white", "black",
 // ];
 
 // const colourNames = ["white","black","red", "green","blue", "yellow", "indigo", "slate", "gray", "zinc", "neutral", "stone", "orange", "lime", "emerald", "teal", "cyan", "sky", "violet", "purple", "fuchsia", "pink", "rose", "amber"] 

@@ -1,11 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BackgroundPreviewArea from '../Reusable/Backgrounds/BackgroundPreviewArea';
 import TextPreviewArea from '../Reusable/Texts/TextPreviewArea';
 import MusicPreviewArea from '../Reusable/Music/MusicPreviewArea';
 import ImageGalleryPreviewArea from '../Reusable/ImageGalleries/ImageGalleryPreviewArea';
 import PreviewArea from '../Reusable/PreviewArea';
+import optionData from '../../data/optionData.json';
 
 const PreviewPage = ({ menuOption, optionChosen }) => {
+
+  // All input states
+  const [inputText, setInputText] = useState("");
+  const [inputTextColour, setInputTextColour] = useState("");
+  const [inputBackgroundColour, setInputBackgroundColour] = useState("");
+
+  // The data of pageElements to be saved in server side
+  const [pageElements, setPageElements] = useState([]);
+
+  // Runs only 1 time
+  useEffect(() => {
+    setPageElements([
+      {
+        type: optionData.backgrounds.component,
+        id: Date.now(),
+        colour: "white",
+        content: ""
+      }
+    ])
+  }, [optionData]);
+
+  useEffect(() => {
+    console.log(pageElements)
+  }, [pageElements]);
+
+  // function to add a text component
+  const addTextElement = (event) => {
+    event.preventDefault();
+
+    const newPageElement = {
+      type: optionData.texts.component,
+      id: Date.now(),
+      content: inputText,
+      colour: inputTextColour
+    };
+    setPageElements([...pageElements, newPageElement]);
+
+    console.log("Text element added with text: " + inputText);
+  };
+
+  // function to update the existing background
+  const updateBackgroundElement = (event) => {
+    event.preventDefault();
+
+    const updatedPageElements = pageElements.map((element) =>
+      element.type === "background"
+        ? { ...element, colour: inputBackgroundColour, id: Date.now() } // Update the existing background element
+        : element
+    );
+
+    setPageElements(updatedPageElements);
+
+    console.log("Background element updated with colour: " + inputBackgroundColour);
+  };
+
   return (
     <div className='flex flex-col items-center gap-4 w-full'>
       {/* Heading */}
@@ -17,56 +73,50 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
       <div>
         {/* Default Preview Area */}
         {menuOption === 0 && (
-          <div 
+          <div
             className='flex flex-col items-center gap-4 border border-white p-2 xsm:p-4'
           >Select a component from the sidebar</div>
         )}
 
         {/* Background Preview Area */}
         {menuOption === 1 && (
-          <BackgroundPreviewArea optionChosen={optionChosen} />
+          <BackgroundPreviewArea 
+            optionChosen={optionChosen} 
+            setInputBackgroundColour={setInputBackgroundColour}
+            updateBackgroundElement={updateBackgroundElement}
+          />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 2 && (
-          <TextPreviewArea optionChosen={optionChosen} />
+          <TextPreviewArea 
+            optionChosen={optionChosen} 
+            inputText={inputText}
+            setInputText={setInputText}
+            setInputTextColour={setInputTextColour}
+            addTextElement={addTextElement}
+          />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 3 && (
-          <ImageGalleryPreviewArea optionChosen={optionChosen} />
+          <ImageGalleryPreviewArea 
+            optionChosen={optionChosen} 
+          />
         )}
 
         {/* Background Preview Area */}
         {menuOption === 4 && (
-          <MusicPreviewArea optionChosen={optionChosen} />
+          <MusicPreviewArea 
+            optionChosen={optionChosen} 
+          />
         )}
       </div>
 
       {/* Page Preview Area */}
       <div className='mx-4 w-full'>
-        <PreviewArea menuOption={menuOption} optionChosen={optionChosen} />
+        <PreviewArea pageElements={pageElements} menuOption={menuOption} optionChosen={optionChosen} />
       </div>
-
-      {/* Create and view Page */}
-      {/* <div className='flex flex-row mx-auto items-center justify-center border-2 rounded-full px-4 py-4'>
-
-        <div className='flex flex-row text-center items-center gap-2 mr-12'>
-          <label for="pagename" className="w-fit">Enter Page Name</label>
-          <input
-            onChange={(event) => setPageName(event.target.value)}
-            type="text"
-            name="pagename"
-            id="pagename"
-            className="w-40 text-black px-4 py-2 rounded-3xl"
-            placeholder="Enter page name"
-            defaultValue={pageName}
-            required=""
-          />
-        </div>
-
-        <CustomButton1 name={`Create and View Page`} link={() => { window.open(`/${auth.userName}/${pageName}`, '_blank') }} />
-      </div> */}
     </div>
   )
 }

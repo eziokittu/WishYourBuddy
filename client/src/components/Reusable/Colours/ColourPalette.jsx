@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../../Backend/hooks/http-hook';
 import "../../../data/definedColours";
 
-const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }) => {
+const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
   const [selectedColour, setSelectedColour] = useState('white');
   const [loadedColours, setLoadedColours] = useState([]);
   const { sendRequest } = useHttpClient();
@@ -39,42 +39,48 @@ const ColourPalette = ({ heading, colours, deleteColour, isAdmin, chooseColour }
       {/* Heading */}
       <div>
         <p className='text-xl border-b-2  vorder-white px-4 py-2 rounded-full'>{heading}</p>
-      </div>    
-      
+      </div>
+
       {/* Grid of all colours */}
       {loadedColours ? (
-      <div className="flex flex-col flex-wrap h-32 xsm:h-40">
-        {loadedColours.map((colour) => {
-          if (colour.name !== "white" && colour.name !== "black") {
-            return (
-              <div
-                key={colour.name}
-                className={`bg-${colour.name}
+        <div className="flex flex-col flex-wrap h-32 xsm:h-40">
+          {loadedColours.map((colour) => {
+            if (colour.name !== "white" && colour.name !== "black") {
+              return (
+                <div
+                  key={colour.name}
+                  className={`bg-${colour.name}
                 w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
                 border border-black hover:border-black hover:rounded-full`}
-                onClick={
-                  () => {
-                    setSelectedColour(colour.name);
-                    chooseColour(colour.name);
+                  onClick={
+                    () => {
+                      setSelectedColour(colour.name);
+                      chooseColour(colour.name);
+                    }
                   }
-                }
-              ></div>
-            );
-          }
-        })}
-        <div
-          className={`bg-white
+                ></div>
+              );
+            }
+          })}
+          <div
+            className={`bg-white
           w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
           border border-black hover:border-black hover:rounded-full`}
-          onClick={() => setSelectedColour('white')}
-        ></div>
-        <div
-          className={`bg-black
+            onClick={() => {
+              setSelectedColour('white')
+              chooseColour('white');
+            }}
+          ></div>
+          <div
+            className={`bg-black
           w-3 h-3 xsm:w-4 xsm:h-4 hover:scale-[2] cursor-pointer
           border border-black hover:border-black hover:rounded-full`}
-          onClick={() => setSelectedColour('black')}
-        ></div>
-      </div>
+            onClick={() => {
+              setSelectedColour('black')
+              chooseColour('black');
+            }}
+          ></div>
+        </div>
       ) : (
         <p className='text-center'>Loading available Colours / No colours available!</p>
       )}

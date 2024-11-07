@@ -17,7 +17,7 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
 
             {/* Option 1 */}
             <SidebarButtonOption
-              key={optionData.backgrounds.keys[0]}
+              myKey={optionData.backgrounds.keys[0]}
               title={optionData.backgrounds.options[0]}
               chooseOption={chooseOption}
               optionValue={optionData.backgrounds.option_values[0]}
@@ -25,7 +25,7 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
 
             {/* Option 2 */}
             <SidebarButtonOption
-              key={optionData.backgrounds.keys[1]}
+              myKey={optionData.backgrounds.keys[1]}
               title={optionData.backgrounds.options[1]}
               chooseOption={chooseOption}
               optionValue={optionData.backgrounds.option_values[1]}
@@ -33,7 +33,7 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
 
             {/* Option 3 */}
             <SidebarButtonOption
-              key={optionData.backgrounds.keys[2]}
+              myKey={optionData.backgrounds.keys[2]}
               title={optionData.backgrounds.options[2]}
               chooseOption={chooseOption}
               optionValue={optionData.backgrounds.option_values[2]}
@@ -52,7 +52,7 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
 
             {/* Option 1 */}
             <SidebarButtonOption
-              key={optionData.texts.keys[0]}
+              myKey={optionData.texts.keys[0]}
               title={optionData.texts.options[0]}
               chooseOption={chooseOption}
               optionValue={optionData.texts.option_values[0]}
@@ -70,13 +70,28 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
           <div className='flex flex-col gap-2 my-2 ml-2'>
 
             {/* Option 1 */}
-            <SidebarButtonOption key={optionData.gallerys.keys[0]} title={optionData.gallerys.options[0]} chooseOption={chooseOption} optionValue={optionData.gallerys.option_values[0]} />
+            <SidebarButtonOption
+              myKey={optionData.gallerys.keys[0]}
+              title={optionData.gallerys.options[0]}
+              chooseOption={chooseOption}
+              optionValue={optionData.gallerys.option_values[0]}
+            />
 
             {/* Option 2 */}
-            <SidebarButtonOption key={optionData.gallerys.keys[1]} title={optionData.gallerys.options[1]} chooseOption={chooseOption} optionValue={optionData.gallerys.option_values[1]} />
+            <SidebarButtonOption
+              myKey={optionData.gallerys.keys[1]}
+              title={optionData.gallerys.options[1]}
+              chooseOption={chooseOption}
+              optionValue={optionData.gallerys.option_values[1]}
+            />
 
             {/* Option 3 */}
-            <SidebarButtonOption key={optionData.gallerys.keys[2]} title={optionData.gallerys.options[2]} chooseOption={chooseOption} optionValue={optionData.gallerys.option_values[2]} />
+            <SidebarButtonOption
+              myKey={optionData.gallerys.keys[2]}
+              title={optionData.gallerys.options[2]}
+              chooseOption={chooseOption}
+              optionValue={optionData.gallerys.option_values[2]}
+            />
           </div>
         )}
       </div>
@@ -85,12 +100,17 @@ const Sidebar = ({ menuOption, setMenuOption, chooseOption }) => {
       <div className='border-b border-slate-200 px-2 flex flex-col bg-slate-800 hover:bg-slate-700'>
 
         <SidebarButton optionDataOption={optionData.music} optionDataDefault={optionData.default} menuOptionNumber={4} setMenuOption={setMenuOption} menuOption={menuOption} chooseOption={chooseOption} />
-        
+
         {menuOption === 4 && (
           <div className='flex flex-col gap-2 my-2 ml-2'>
 
             {/* Option 1 */}
-            <SidebarButtonOption key={optionData.music.keys[0]} title={optionData.music.options[0]} chooseOption={chooseOption} optionValue={optionData.music.option_values[0]} />
+            <SidebarButtonOption
+              myKey={optionData.music.keys[0]}
+              title={optionData.music.options[0]}
+              chooseOption={chooseOption}
+              optionValue={optionData.music.option_values[0]}
+            />
           </div>
         )}
       </div>

@@ -9,7 +9,7 @@ const SidebarButton = ({ menuOptionNumber, optionDataDefault, optionDataOption, 
             setMenuOption(optionDataOption.menu_option)
             chooseOption(0);
           }}
-          className='flex flex-row justify-between items-center'
+          className='flex flex-row justify-between items-center cursor-pointer'
         >
           <p className='text-xl'>{optionDataOption.menu_name} </p>
           <button
@@ -26,7 +26,7 @@ const SidebarButton = ({ menuOptionNumber, optionDataDefault, optionDataOption, 
           onClick={() => {
             setMenuOption(optionDataDefault.menu_option)
           }}
-          className='flex flex-row justify-between items-center'
+          className='flex flex-row justify-between items-center cursor-pointer'
         >
           <p className='text-xl'>{optionDataOption.menu_name} </p>
           <button
