@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className='fixed top-0 h-6 w-full flex flex-row justify-between bg-slate-900 text-slate-50 border-b border-slate-200'>
+      <div className='fixed top-0 h-6 px-2 w-full flex flex-row justify-between bg-slate-900 text-slate-50 border-b border-slate-200'>
         {/* Left Logo */}
         <div>
           <Link to={"/"}><button>Wish-Your-Buddy</button></Link>
@@ -23,11 +23,6 @@ const Header = () => {
 
         {/* Right Menu options */}
         <div className='flex flex-row gap-x-4'>
-          <div>
-            {/* <Link to={"/demo"}>See Demo</Link> */}
-            <button onClick={() => { window.open(`/demo`, '_blank') }}>Demo</button>
-          </div>
-
           {auth.token ? (
             <div>
               <Link to={"/settings"}><button>Settings</button></Link>

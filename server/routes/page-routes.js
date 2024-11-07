@@ -6,8 +6,18 @@ const router = express.Router();
 
 // GET Routes
 router.get(
-  '/get/:userName/:pageName',
+  '/get/:userName/page/:pageName',
   pageController.getPage
+);
+
+router.get(
+  '/get/:userName/pagenames',
+  pageController.getPageNames
+);
+
+router.get(
+  '/get/:userName/pages',
+  pageController.getPages
 );
 
 // Added middleware to check if authentication token is VALID

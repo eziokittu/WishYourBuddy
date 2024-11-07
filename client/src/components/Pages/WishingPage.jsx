@@ -4,7 +4,7 @@ import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
 import PageElement from "../Reusable/PageElement";
 
-const WishingPage = ({ pageSettings }) => {
+const WishingPage = () => {
   const auth = useContext(AuthContext);
   const { username, pagename } = useParams();
   const { sendRequest } = useHttpClient();
@@ -14,7 +14,7 @@ const WishingPage = ({ pageSettings }) => {
   const getPage = async event => {
     try {
       const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/pages/get/${username}/${pagename}`
+        `${process.env.REACT_APP_BACKEND_URL}/pages/get/${username}/page/${pagename}`
       );
       if (responseData.ok === 1) {
         setLoadedPage(responseData.page)

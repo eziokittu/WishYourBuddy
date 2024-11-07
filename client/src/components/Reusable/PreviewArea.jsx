@@ -8,7 +8,7 @@ const PreviewArea = ({ pageElements, menuOption, optionChosen }) => {
       <p>Page Preview</p>
 
       {/* Viewing Window */}
-      <div className='w-full min-h-[300px] p-4 flex justify-center items-center'>
+      <div className='w-full min-h-[300px] p-2 xsm:p-4 flex justify-center items-center'>
         {pageElements.filter(pageElement => pageElement.type === 'background').map(pageElement => (
           <PageElement
             menuOption={menuOption}

@@ -53,6 +53,64 @@ const getPage = async (req, res, next) => {
   return res.json({ ok: 1, message: "Page belongs to this user", page: existingPage, isOwner: true });
 };
 
+const getPages = async (req, res, next) => {
+  const userName = req.params['userName'];
+
+  // Checking user validity
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ userName: userName }, '-password').populate('pages');
+    if (!existingUser) {
+      return res.json({ ok: -1, message: "Invalid Username!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching user failed, please try again later" });
+  }
+
+  // Getting all pages
+  let allPages = [];
+  try {
+    for (const pageId of existingUser.pages) {
+      const page = await Page.findById(pageId);
+      if (page) {
+        allPages.push(page);
+      }
+    }
+    return res.json({ok: 1, message: "Successful in fetching user pages", pages: allPages})
+  } catch (err) {
+    return res.json({ ok: -1, message: "Something went wrong while fetching pages! Please try again later!" });
+  }
+};
+
+const getPageNames = async (req, res, next) => {
+  const userName = req.params['userName'];
+
+  // Checking user validity
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ userName: userName }, '-password');
+    if (!existingUser) {
+      return res.json({ ok: -1, message: "Invalid Username!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching user failed, please try again later" });
+  }
+
+  // Getting only page names based on the user's page IDs
+  let pageNames = [];
+  try {
+    for (const pageId of existingUser.pages) {
+      const page = await Page.findById(pageId).select('name'); // Only selecting the 'name' field
+      if (page) {
+        pageNames.push(page.name);
+      }
+    }
+    return res.json({ ok: 1, message: "Successfully fetched user page names", pageNames: pageNames });
+  } catch (err) {
+    return res.json({ ok: -1, message: "Something went wrong while fetching page names! Please try again later!" });
+  }
+};
+
 
 // POST
 
@@ -77,6 +135,7 @@ const createPage = async (req, res, next) => {
   }
 
   // Checking if a page with this name already exists
+  // An user can change their username in future hence all page names must be unique
   let existingPage;
   try {
     existingPage = await Page.findOne({ name: name }); // Corrected variable usage
@@ -168,6 +227,8 @@ const deletePage = async (req, res, next) => {
 
 module.exports = {
   getPage,
+  getPageNames,
+  getPages,
   createPage,
   deletePage
 };

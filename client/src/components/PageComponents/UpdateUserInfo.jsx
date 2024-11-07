@@ -85,7 +85,7 @@ const UpdateUserInfo = ({auth}) => {
     <div className='flex flex-col text-center mx-auto'>
       <p className='my-8 text-2xl underline underline-offset-8'>Update User Info</p>
       <form
-        className='flex flex-col gap-2 border w-fit h-fit mx-auto p-8'
+        className='flex flex-col gap-2 border w-fit h-fit mx-auto p-2 gap:p-8'
         onSubmit={authUpdateUserInfo}
       >
         {/* Username */}
@@ -96,7 +96,7 @@ const UpdateUserInfo = ({auth}) => {
             type="text"
             name="username"
             id="username"
-            className="w-80 text-black"
+            className="w-56 xsm:w-80 text-black"
             placeholder="UserName"
             defaultValue={auth.userName}
             required=""
@@ -111,7 +111,7 @@ const UpdateUserInfo = ({auth}) => {
             type="email"
             name="email"
             id="email"
-            className="w-80 text-black"
+            className="w-56 xsm:w-80 text-black"
             placeholder="E-mail"
             defaultValue={auth.email}
             required=""
@@ -127,7 +127,7 @@ const UpdateUserInfo = ({auth}) => {
             name="password"
             id="password"
             placeholder="(unchanged)"
-            className="w-80 text-black"
+            className="w-56 xsm:w-80 text-black"
             required=""
           />
         </div>
@@ -141,7 +141,7 @@ const UpdateUserInfo = ({auth}) => {
             name="confirmPassword"
             id="confirmPassword"
             placeholder="(unchanged)"
-            className="w-80 text-black"
+            className="w-56 xsm:w-80 text-black"
             required=""
           />
         </div>
