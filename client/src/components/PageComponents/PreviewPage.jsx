@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import BackgroundPreviewArea from '../Reusable/Backgrounds/BackgroundPreviewArea';
 import TextPreviewArea from '../Reusable/Texts/TextPreviewArea';
 import MusicPreviewArea from '../Reusable/Music/MusicPreviewArea';
@@ -21,7 +22,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
     setPageElements([
       {
         type: optionData.backgrounds.component,
-        id: Date.now(),
+        id: uuidv4(),
         colour: "white",
         content: ""
       }
@@ -38,7 +39,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
 
     const newPageElement = {
       type: optionData.texts.component,
-      id: Date.now(),
+      id: uuidv4(),
       content: inputText,
       colour: inputTextColour
     };
@@ -53,7 +54,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
 
     const updatedPageElements = pageElements.map((element) =>
       element.type === "background"
-        ? { ...element, colour: inputBackgroundColour, id: Date.now() } // Update the existing background element
+        ? { ...element, colour: inputBackgroundColour } // Update the existing background element
         : element
     );
 

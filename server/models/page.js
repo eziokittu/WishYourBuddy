@@ -2,14 +2,19 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 const Schema = mongoose.Schema;
 
+// This is the page Element Schema
+const pageElementSchema = new Schema({
+  type: { type: String, required: true, default: "text" },
+  colour: { type: String, default: "white" },
+  content: { type: String, default: "" },
+  id: { type: String, required: true }
+});
+
 const pageSchema = new Schema({
-  name: {type: String, required: true, unique: true, default: "page1" },
-  background: {type: mongoose.Types.ObjectId, required: true, ref: 'Background' }
-  // fonts: [{ type: mongoose.Types.ObjectId, required: true, ref: 'Font' }],
-  // texts: [{ type: String }],
-  // images: [{ type: String, required: true, minLength: 4, default: process.env.DB_DEFAULT_IMAGE }],
-  // date_start: {type: Date, required: true, default: Date.now() },
-  // date_end: {type: Date, required: true, default: Date.now() + 1000*60*60*24*2 } // 2 days
+  name: { type: String, required: true, unique: true, default: "page1" },
+  pageElements: [pageElementSchema],
+  creationDate: { type: Date, required: true, default: () => Date.now() },
+  user: {type: mongoose.Types.ObjectId, ref: 'User' }
 });
 
 pageSchema.plugin(uniqueValidator);

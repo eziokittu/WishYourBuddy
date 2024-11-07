@@ -1,5 +1,5 @@
 const express = require('express');
-const { check } = require('express-validator');
+// const { check } = require('express-validator');
 const pageController = require('../controller/page-controller');
 const checkAuth = require('../middlewares/check-auth');
 const router = express.Router();
@@ -9,33 +9,21 @@ router.get(
   '/get/:userName/:pageName',
   pageController.getPage
 );
-// router.get(
-//   '/get/colour/:cid',
-//   colourController.getColour
-// );
 
-// // Added middleware to check if authentication token is VALID
+// Added middleware to check if authentication token is VALID
 // router.use(checkAuth);
 
-// // POST Routes
-// router.post(
-//   '/post/colour',
-//   check('name')
-//     .not()
-//     .isEmpty(),
-//   colourController.addColour
-// );
+// POST Routes
+router.post(
+  '/post/:userName',
+  pageController.createPage
+);
 
-// router.post(
-//   '/post/colours',
-//   colourController.addColours
-// )
+// DELETE Routes
 
-// // DELETE Routes
-
-// router.delete(
-//   '/delete/colour',
-//   colourController.deleteColourByName
-// )
+router.delete(
+  '/delete/:userName/:pageName',
+  pageController.deletePage
+)
 
 module.exports = router;

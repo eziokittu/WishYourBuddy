@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-const { v4: uuidv4 } = require('uuid');
+// const { v4: uuidv4 } = require('uuid');
 const Page = require('../models/page');
 const User = require('../models/user');
 
@@ -8,138 +8,166 @@ const User = require('../models/user');
 
 const getPage = async (req, res, next) => {
   const userName = req.params['userName'];
+
+  // Checking user validity
   let existingUser;
   try {
-    existingUser = await User.findOne({userName: userName}, '-password');
-    if (!existingUser){
-      return res.json({ok:-1, message: "Invalid Username!"});
+    existingUser = await User.findOne({ userName: userName }, '-password').populate('pages');
+    if (!existingUser) {
+      return res.json({ ok: -1, message: "Invalid Username!" });
     }
   } catch (err) {
-    return res.json({ok:-1, message: "Fetching user failed, please try again later"});
+    return res.json({ ok: -1, message: "Fetching user failed, please try again later" });
   }
-  
+
+  // Checking page validity
   const pageName = req.params['pageName'];
   let existingPage;
   try {
-    getPage = await Page.findOne(cid);
-    if (!existingColour) {
-      return res.json({ ok: -1, message: "Invalid colour ID! OR no colour exists with this ID" });
+    existingPage = await Page.findOne({ name: pageName });
+    if (!existingPage) {
+      return res.json({ ok: -1, message: "Invalid page name!" });
     }
   } catch (err) {
-    return res.json({ ok: -1, message: "Fetching colour failed, please try again later!" });
+    return res.json({ ok: -1, message: "Fetching page failed, please try again later!" });
   }
-  res.json({ ok: 1, colour: existingColour });
+
+  // Checking if the page belongs to this user
+  try {
+    let pageBelongsToUser = false;
+    for (let i = 0; i < existingUser.pages.length; i++) {
+      if (existingUser.pages[i].equals(existingPage._id)) {
+        pageBelongsToUser = true;
+        break;
+      }
+    }
+
+    // page not of this user
+    if (!pageBelongsToUser) {
+      return res.json({ ok: 1, message: "Page does not belong to this user!", page: existingPage, isOwner: false });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Error checking page ownership, please try again later!" });
+  }
+
+  return res.json({ ok: 1, message: "Page belongs to this user", page: existingPage, isOwner: true });
 };
+
 
 // POST
 
-// const addColour = async (req, res, next) => {
-//   try {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.json({ ok: -1, message: 'Invalid inputs passed, please check your data.' });
-//     }
+const createPage = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.json({ ok: -1, message: 'Invalid inputs passed, please check your data.' });
+  }
 
-//     // if (req.userData.isAdmin === false){
-//     //   return res.json({ok:-1, message:'Only the ADMIN can add a new colour!' });
-//     // }
+  const userName = req.params['userName'];
+  const { name, pageElements } = req.body;
 
-//     const { name } = req.body;
+  // Fetching the user with the username
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ userName: userName }, '-password');
+    if (!existingUser) {
+      return res.json({ ok: -1, message: "Invalid Username!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching user failed, please try again later" });
+  }
 
-//     let colourWithSameName = await Colour.findOne({ name: name });
-//     if (colourWithSameName) {
-//       return res.json({ ok: -1, message: "A colour with the same 'name' already exists! Try another name!" })
-//     }
-//     // let colourWithSameCode = await Colour.findOne({ code: code });
-//     // if (colourWithSameCode) {
-//     //   return res.json({ok:-1, message: "A colour with the same 'Code' already exists! Try another 'code'!"})
-//     // }
+  // Checking if a page with this name already exists
+  let existingPage;
+  try {
+    existingPage = await Page.findOne({ name: name }); // Corrected variable usage
+    if (existingPage) {
+      return res.json({ ok: -1, message: "A page already exists with this name!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching page failed, please try again later!" });
+  }
 
-//     const createdColour = new Colour({
-//       name: name
-//     });
+  // Creating the new page
+  try {
+    // const generatedId = uuidv4();
+    const createdPage = new Page({
+      name: name,
+      pageElements: pageElements,
+      creationDate: Date.now(),
+      user: existingUser._id
+    });
 
-//     await createdColour.save();
+    // Saving the page
+    await createdPage.save();
 
-//     res.status(201).json({
-//       ok: 1,
-//       colour: createdColour
-//     });
-//   } catch (err) {
-//     console.error(err); // Log the error for debugging
-//     return res.json({ ok: -1, message: "Adding the new colour failed!" })
-//   }
-// };
+    // Linking the page with the user
+    existingUser.pages.push(createdPage._id);
+    await existingUser.save();
 
-// const addColours = async (req, res, next) => {
-//   try {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ ok: -1, message: 'Invalid inputs passed, please check your data.' });
-//     }
+    return res.status(201).json({
+      ok: 1,
+      page: createdPage
+    });
+  } catch (err) {
+    console.error("Creating page failed! " + err);
+    return res.json({ ok: -1, message: "Adding new page failed!" });
+  }
+};
 
-//     const { names } = req.body; // `names` is a list of color name strings
-//     const addedColours = []; // To keep track of successfully added colors
-
-//     for (let name of names) {
-//       // Check if the color name already exists
-//       let colourWithSameName = await Colour.findOne({ name: name });
-//       if (colourWithSameName) {
-//         continue; // Skip if color already exists
-//       }
-      
-//       // Create and save the new color
-//       const createdColour = new Colour({
-//         name: name
-//       });
-//       await createdColour.save();
-
-//       // Add to the list of successfully added colors
-//       addedColours.push(createdColour);
-//     }
-
-//     // Send a single response after all colors have been processed
-//     return res.status(201).json({
-//       ok: 1,
-//       addedColours: addedColours,
-//       message: "Added all unique colours!"
-//     });
-
-//   } catch (err) {
-//     console.error(err); // Log the error for debugging
-//     return res.status(500).json({ ok: -1, message: "Adding the new colours failed!" });
-//   }
-// };
+// PATCH
 
 
-// // DELETE
 
-// const deleteColourById = async (req, res, next) => {
-//   const { colourId } = req.body;
+// DELETE
 
-//   // deleting the colour
-//   try {
-//     await Colour.deleteOne({ _id: colourId });
-//   } catch (err) {
-//     return res.status(500).json({ ok: -1, message: "Could not delete colour! Something went wrong!" });
-//   }
+const deletePage = async (req, res, next) => {
+  const userName = req.params['userName'];
+  const pageName = req.params['pageName'];
 
-//   res.status(200).json({ ok: 1, message: "colour deleted successfully!" });
-// };
+  // Fetching the user with the username
+  let existingUser;
+  try {
+    existingUser = await User.findOne({ userName: userName });
+    if (!existingUser) {
+      return res.json({ ok: -1, message: "Invalid Username!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching user failed, please try again later." });
+  }
 
-// const deleteColourByName = async (req, res, next) => {
-//   const { name } = req.body;
+  // Finding the page with the provided name
+  let pageToDelete;
+  try {
+    pageToDelete = await Page.findOne({ name: pageName });
+    if (!pageToDelete) {
+      return res.json({ ok: -1, message: "Page not found!" });
+    }
+  } catch (err) {
+    return res.json({ ok: -1, message: "Fetching page failed, please try again later." });
+  }
 
-//   // deleting the colour
-//   try {
-//     await Colour.deleteOne({ name: name });
-//   } catch (err) {
-//     return res.status(500).json({ ok: -1, message: "Could not delete colour! Something went wrong!" });
-//   }
+  // Deleting the page and unlinking from the user
+  try {
+    // Deleting the page from the collection
+    await Page.deleteOne({ _id: pageToDelete._id });
 
-//   res.status(200).json({ ok: 1, message: "colour deleted successfully!" });
-// };
+    // Unlinking the page from the user's pages array
+    existingUser.pages = existingUser.pages.filter(pageId => !pageId.equals(pageToDelete._id));
+    await existingUser.save();
+
+    return res.status(200).json({
+      ok: 1,
+      message: "Page successfully deleted and unlinked from the user."
+    });
+  } catch (err) {
+    console.error("Deleting page failed! " + err);
+    return res.json({ ok: -1, message: "Deleting page failed, please try again later." });
+  }
+};
+
 
 module.exports = {
-  getPage
+  getPage,
+  createPage,
+  deletePage
 };
