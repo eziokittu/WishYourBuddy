@@ -3,9 +3,9 @@ import PageElement from "./PageElement";
 
 const PreviewArea = ({ pageElements, menuOption, optionChosen }) => {
   return (
-    <div className='flex flex-col items-center gap-2 xsm:gap-4 bg-mybg-basic border border-white rounded-2xl m-2 xsm:m-4'>
+    <div className='flex flex-col items-center gap-1 xsm:gap-2 bg-mybg-basic border border-white rounded-2xl m-2 xsm:m-4'>
       {/* Heading */}
-      <p>Page Preview</p>
+      <p className='pt-2'>Page Preview</p>
 
       {/* Viewing Window */}
       <div className='w-full min-h-[300px] p-2 xsm:p-4 flex justify-center items-center'>
