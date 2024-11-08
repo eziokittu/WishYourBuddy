@@ -14,7 +14,7 @@ const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextCo
   }
 
   return (
-    <div className='flex flex-col items-center gap-4 border border-white p-4'>
+    <div className='flex flex-col items-center gap-2 xsm:gap-4 border border-white p-2 xsm:p-4'>
       {/* Heading */}
       <div className='flex flex-col items-center justify-centertext-center'>
         <p className='underline underline-offset-4'>Text Preview Area</p>

@@ -65,7 +65,7 @@ const WishingPageMenu = () => {
 
       {/* Menu Options */}
       {menuOpen && (
-        <div className='fixed top-1/2 left-1/2 p-4 w-[200px] xsm:w-[400px] rounded-2xl border text-white bg-mybg-basic/90 hover:bg-mybg-basic -translate-x-1/2 -translate-y-1/2'>
+        <div className='fixed top-1/2 left-1/2 p-4 w-[200px] backdrop-blur-sm shadow-[0_0_20px_black] hover:shadow-[0_0_10px_black] xsm:w-[400px] rounded-2xl border border-white/30 text-white bg-black/40 hover:bg-black/60 -translate-x-1/2 -translate-y-1/2 transition-all duration-300'>
           <div className='flex flex-col items-center gap-4'>
 
             {/* Menu Title */}

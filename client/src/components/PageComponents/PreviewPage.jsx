@@ -131,11 +131,11 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
       </div>
 
       {/* Component Preview Areas */}
-      <div className='bg-mybg-basic'>
+      <div className=''>
         {/* Default Preview Area */}
         {menuOption === 0 && (
           <div
-            className='flex flex-col items-center gap-4 border border-white p-2 xsm:p-4'
+            className='flex flex-col items-center gap-4 border bg-mybg-basic border-white rounded-2xl p-2 xsm:p-4'
           >Select a component from the sidebar</div>
         )}
 

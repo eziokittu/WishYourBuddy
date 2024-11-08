@@ -80,7 +80,7 @@ const Dashboard = () => {
         <div className='flex flex-col gap-6 text-center items-center'>
 
           {/* Title with Page Description */}
-          <div className='flex flex-col gap-4 border bg-mybg-basic border-white px-2 xsm:px-8 py-2 mx-2'>
+          <div className='flex flex-col gap-4 border rounded-2xl bg-mybg-basic border-white px-2 xsm:px-8 py-2 mx-2'>
             <p className='font-bold text-lg xsm:text-2xl underline underline-offset-4'>Welcome to 'Wish-Your-Buddy'</p>
             <p className=''>Here you can create a page to wish someone!</p>
             <p className=''>With texts, Colours, music, images and a lot to come! Stay tuned!</p>
@@ -93,7 +93,7 @@ const Dashboard = () => {
           )}
 
           {auth.token && loadedPageNames && loadedPageNames.length > 0 && (
-            <div className='flex flex-col gap-4 border bg-mybg-basic border-white p-2 xsm:p-8'>
+            <div className='flex flex-col gap-4 border bg-mybg-basic border-white rounded-2xl p-2 xsm:p-8'>
               <p className='font-bold text-xl'>You have '{loadedPageNames.length}' wishing {loadedPageNames.length === 1 ? 'page' : 'pages'}</p>
               {loadedPageNames.map((loadedPageName, id) => (
                 <div key={`key-pagename-${id}`} className='flex flex-row justify-between gap-8 w-full'>

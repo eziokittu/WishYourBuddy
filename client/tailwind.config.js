@@ -15,8 +15,8 @@ module.exports = {
         "mybtn-red-basic": "#dc2626",
         "mybtn-red-light": "#fecaca",
         "mybtn-red-dark": "#991b1b",
-        "mybtn-gray-basic": "#374151",
-        "mybtn-gray-light": "#d1d5db",
+        "mybtn-gray-basic": "#6b7280",
+        "mybtn-gray-light": "#e5e7eb",
         "mybtn-gray-dark": "#374151",
       },
       screens: {
