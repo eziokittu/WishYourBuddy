@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
 import Header from '../PageComponents/Header';
+import CustomButton1 from '../Reusable/Buttons/CustomButton1';
 
 const Signup = () => {
   const auth = useContext(AuthContext);
@@ -84,22 +85,22 @@ const Signup = () => {
   return (
     <div>
       <Header />
-      <div className='mt-6 pt-24 bg-slate-800 text-gray-300 h-screen flex flex-col'>
+      <div className='mt-8 pt-24 bg-mybg-light text-white h-screen flex flex-col'>
         <p className='text-center text-4xl pb-8'>Signup Page</p>
         <form
-          className='flex flex-col gap-2 border w-fit h-fit mx-auto p-8'
+          className='flex flex-col gap-2 border rounded-2xl bg-mybg-basic w-fit h-fit mx-auto p-8'
           onSubmit={authSubmitHandler}
         >
 
           {/* Email */}
           <div className='flex flex-col mx-auto'>
-            <label for="email" className="w-fit">Your email</label>
+            <label for="email" className="w-fit">Email</label>
             <input
               onChange={(event) => setInputEmail(event.target.value)}
               type="email"
               name="email"
               id="email"
-              className="w-60 text-black"
+              className="w-60 xsm:w-80 px-4 py-2 rounded-full text-black"
               placeholder="E-mail"
               required=""
             />
@@ -114,7 +115,7 @@ const Signup = () => {
               name="password"
               id="password"
               placeholder="Password"
-              className="w-60 text-black"
+              className="w-60 xsm:w-80 px-4 py-2 rounded-full text-black"
               required=""
             />
           </div>
@@ -128,15 +129,13 @@ const Signup = () => {
               name="confirm-password"
               id="confirm-password"
               placeholder="Confirm Password"
-              className="w-60 text-black"
+              className="w-60 xsm:w-80 px-4 py-2 rounded-full text-black"
               required=""
             />
           </div>
 
-          <button className='hover:underline underline-offset-2' type='submit'>Signup</button>
-          <button className='hover:underline underline-offset-2 pt-8'>
-            <Link to={"/login"}>Already have an account?</Link>
-          </button>
+          <CustomButton1 extraClasses={`mt-4 mb-12`} isSubmit={true} name={"Signup"} colour={'green'} />
+          <CustomButton1 navLink={'/login'} name={"Aready have an Account?"} colour={'gray'} />
 
         </form>
       </div>

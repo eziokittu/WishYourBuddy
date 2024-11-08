@@ -1,18 +1,14 @@
 import React from 'react';
-import "../../data/definedColours";
-import Text_Default from './Texts/Text_Default';
-import Background_SolidColour from './Backgrounds/Background_SolidColour';
-
-const gg = [
-  "bg-white"
-]
+import "../../../data/definedColours";
+import TextDefault from '../Texts/TextDefault';
+import BackgroundSolidColour from '../Backgrounds/BackgroundSolidColour';
 
 const PageElement = ({ type, myKey, myId, content, colour, children }) => {
 
   // Backgrounds
   if (type === 'background') {
     return (
-      <Background_SolidColour
+      <BackgroundSolidColour
         myId={myId}
         myKey={myKey}
         colour={colour}
@@ -24,7 +20,7 @@ const PageElement = ({ type, myKey, myId, content, colour, children }) => {
   // Texts
   else if (type === 'text') {
     return (
-      <Text_Default 
+      <TextDefault 
         myId={myId}
         myKey={myKey}
         colour={colour}

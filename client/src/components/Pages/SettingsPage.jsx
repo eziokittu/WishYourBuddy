@@ -15,7 +15,7 @@ const SettingsPage = () => {
     <>
       <Header />
       {auth.token ? (
-        <div className='bg-slate-800 text-gray-300 min-h-screen flex mt-6'>
+        <div className='bg-slate-800 text-gray-300 min-h-screen flex mt-8'>
           {auth.isAdmin ? (
             <div className='w-full'>
               <AdminCustomizeColour auth={auth} />

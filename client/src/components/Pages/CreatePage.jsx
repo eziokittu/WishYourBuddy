@@ -22,7 +22,7 @@ const CreatePage = () => {
       <div className='bg-slate-800 text-gray-300 flex flex-row w-screen h-screen'>
         {/* Sidebar with responsive visibility */}
         <div
-          className={`bg-slate-900 fixed inset-y-0 top-6 overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-950 
+          className={`bg-slate-900 fixed inset-y-0 top-8 overflow-y-scroll scrollbar-thin scrollbar-thumb-mybtn-gray-light scrollbar-track-mybg-dark 
           ${isSidebarOpen ? 'block' : 'hidden'} md:block w-5/6 xsm:w-2/3 sm:w-3/5 md:w-80 z-10 transition-transform duration-300`}
         >
           <Sidebar menuOption={menuOption} setMenuOption={setMenuOption} chooseOption={chooseOption} />
@@ -39,13 +39,13 @@ const CreatePage = () => {
 
         {/* Hamburger button for mobile view */}
         {!isSidebarOpen && (
-          <div onClick={toggleSidebar} className='fixed top-8 left-2 z-20 w-10 h-10 bg-slate-100 flex items-center justify-center cursor-pointer font-bold text-2xl text-slate-900 animate-pulse hover:animate-none md:hidden'>
+          <div onClick={toggleSidebar} className='fixed top-10 left-2 z-20 w-10 h-10 bg-slate-100 flex items-center justify-center cursor-pointer font-bold text-2xl text-slate-900 animate-pulse hover:animate-none md:hidden'>
             <p>☰</p>
           </div>
         )}
 
         {/* Preview Page Area */}
-        <div className='bg-slate-800 flex-grow h-screen overflow-y-scroll scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-950 md:ml-80'>
+        <div className='bg-slate-800 flex-grow h-screen overflow-y-scroll scrollbar-thin scrollbar-thumb-mybtn-gray-light scrollbar-track-mybg-dark md:ml-80'>
           <PreviewPage menuOption={menuOption} optionChosen={optionChosen} />
         </div>
       </div>

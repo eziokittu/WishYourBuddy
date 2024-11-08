@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ColourPalette from '../Colours/ColourPalette';
 import "../../../data/definedColours";
 import optionData from '../../../data/optionData.json';
+import CustomButton1 from '../Buttons/CustomButton1';
 
 const BackgroundPreviewArea = ({optionChosen, setInputBackgroundColour, updateBackgroundElement}) => {
   const [chosenColour, setChosenColour] = useState('transparent');
@@ -28,10 +29,7 @@ const BackgroundPreviewArea = ({optionChosen, setInputBackgroundColour, updateBa
       <ColourPalette heading={"Choose Colour"} chooseColour={chooseColour} />
 
       {/* Add component to page */}
-      <button 
-        className='bg-green-800 hover:bg-green-700 px-4 py-2 text-white'
-        onClick={updateBackgroundElement}
-      >Update Background</button>
+      <CustomButton1 colour={'green'} link={updateBackgroundElement} name={'Update Background'} />
     </div>
   )
 }

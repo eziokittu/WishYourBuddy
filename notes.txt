@@ -1,1 +1,1 @@
-i added pages attribute in user model, so i deleted previous "user" document and started new
+Problem 1 - Any existing page if opened with different existing username, who does not own the page, the page still opens. it should not

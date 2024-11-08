@@ -8,8 +8,9 @@ import BackgroundPreviewArea from '../Reusable/Backgrounds/BackgroundPreviewArea
 import TextPreviewArea from '../Reusable/Texts/TextPreviewArea';
 import MusicPreviewArea from '../Reusable/Music/MusicPreviewArea';
 import ImageGalleryPreviewArea from '../Reusable/ImageGalleries/ImageGalleryPreviewArea';
-import PreviewArea from '../Reusable/PreviewArea';
+import PreviewArea from '../Reusable/PageComponent/PreviewArea';
 import optionData from '../../data/optionData.json';
+import CustomButton1 from '../Reusable/Buttons/CustomButton1';
 
 const PreviewPage = ({ menuOption, optionChosen }) => {
   const auth = useContext(AuthContext);
@@ -37,8 +38,8 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
   }, [optionData]);
 
   // function to add a text component
-  const addTextElement = (event) => {
-    event.preventDefault();
+  const addTextElement = () => {
+    // event.preventDefault();
 
     const newPageElement = {
       type: optionData.texts.component,
@@ -52,8 +53,8 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
   };
 
   // function to update the existing background
-  const updateBackgroundElement = (event) => {
-    event.preventDefault();
+  const updateBackgroundElement = () => {
+    // event.preventDefault();
 
     const updatedPageElements = pageElements.map((element) =>
       element.type === "background"
@@ -79,8 +80,8 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
   };
 
   // Function that saves the page elements to the page database and links to the user and then navigates to the created page
-  const createPage = async event => {
-    event.preventDefault();
+  const createPage = async () => {
+    // event.preventDefault();
 
     // Checking for invalid input
     const validationAlerts = validateInput()
@@ -130,7 +131,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
       </div>
 
       {/* Component Preview Areas */}
-      <div>
+      <div className='bg-mybg-basic'>
         {/* Default Preview Area */}
         {menuOption === 0 && (
           <div
@@ -174,31 +175,41 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
       </div>
 
       {/* Page Preview Area */}
-      <div className='w-full'>
+      <div className='w-full '>
         <PreviewArea pageElements={pageElements} />
       </div>
 
       {/* Create Page Form */}
-      <div className='flex flex-row items-center h-16 xsm:h-20 gap-2 xsm:gap-4 p-2 xsm:p-4 border border-white '>
+      <div className='bg-mybg-basic flex flex-col mx-2 mb-2 items-center gap-4 p-2 xsm:p-4 border border-white rounded-2xl'>
 
+        <div className='flex flex-row gap-2 xsm:gap-4'>
         {/* Page Name Input */}
-        <div className='flex flex-col mx-auto items-center'>
-          <label htmlFor="input-text" className="w-fit">Enter Page Name</label>
-          <input
-            onChange={(event) => setInputPageName(event.target.value)}
-            type="text"
-            name="input-text"
-            id="input-text"
-            className="w-36 xsm:w-48 text-black"
-            placeholder="MyPage"
-          />
-        </div>
+        <input
+          onChange={(event) => setInputPageName(event.target.value)}
+          type="text"
+          name="input-text"
+          id="input-text"
+          className="w-36 xsm:w-48 px-2 xsm:px-4 py-1 xsm:py-2 rounded-full text-black"
+          placeholder="Enter Page Name"
+        />
 
         {/* Create Page Button */}
-        <button
-          onClick={createPage}
-          className='bg-green-700 hover:bg-green-800 text-white px-2 xsm:px-4 py-2 xsm:py-2 h-full'
-        >Create Page</button>
+        <CustomButton1 name={'Create Page'} link={() => (createPage())} colour={'green'} />
+        </div>
+
+        {/* Page name View */}
+        {inputPageName !== "" && (
+          <div className='flex flex-col gap-1 text-center'>
+            <p>Your page URL will be:</p>
+            <p className='text-sm underline underline-offset-2'>
+              <span>https://wish-your-buddy.vercel.app/</span>
+              <span className='font-bold text-base'>{auth.userName}</span>
+              <span>/</span>
+              <span className='font-bold text-base'>{inputPageName}</span>
+            </p>
+            <p className='mt-8'>Note: Changing the username will change the URL as expected!</p>
+          </div>
+        )}
       </div>
     </div>
   )

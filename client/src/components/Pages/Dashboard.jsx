@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import { Link } from 'react-router-dom';
-
+import CustomButton1 from '../Reusable/Buttons/CustomButton1';
 import { AuthContext } from '../Backend/context/auth-context';
 import Header from '../PageComponents/Header';
 
@@ -31,7 +31,9 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    getPageNames();
+    if (auth.token) {
+      getPageNames();
+    }
   }, [auth]);
 
   const deletePage = async (pageName) => {
@@ -74,29 +76,24 @@ const Dashboard = () => {
       <Header />
 
       {/* Page Body */}
-      <div className='mt-6 pt-6 bg-slate-800 text-gray-300 h-screen'>
+      <div className='mt-8 pt-6 bg-mybg-light text-white h-screen'>
         <div className='flex flex-col gap-6 text-center items-center'>
 
           {/* Title with Page Description */}
-          <div className='flex flex-col gap-1'>
-            <p className='font-bold text-2xl underline underline-offset-4'>Welcome to 'Wish-Your-Buddy'</p>
-            <p>Here you can create a page to wish someone!</p>
-            <p>With texts, Colours, music, images and a lot to come! Stay tuned!</p>
+          <div className='flex flex-col gap-4 border bg-mybg-basic border-white px-2 xsm:px-8 py-2 mx-2'>
+            <p className='font-bold text-lg xsm:text-2xl underline underline-offset-4'>Welcome to 'Wish-Your-Buddy'</p>
+            <p className=''>Here you can create a page to wish someone!</p>
+            <p className=''>With texts, Colours, music, images and a lot to come! Stay tuned!</p>
           </div>
 
-
-          <button
-            onClick={() => { window.open(`/demo`, '_blank') }}
-            className='bg-gray-400 hover:bg-gray-300 text-black px-4 py-2'
-          >See DEMO wishing page</button>
-
+          <CustomButton1 link={() => { window.open(`/demo`, '_blank') }} colour={'gray'} name={"See DEMO wishing page"}/>
 
           {auth.token && (
-            <Link key={'key-create'} to={"/create"}><button className='bg-green-700 hover:bg-green-800 text-white px-4 py-2'>Create a 'wishing page'</button></Link>
+            <CustomButton1 navLink={"/create"} colour={'green'} name={"Create a 'wishing page'"}/>
           )}
 
-          {loadedPageNames && loadedPageNames.length > 0 && (
-            <div className='flex flex-col gap-4 border border-white p-4'>
+          {auth.token && loadedPageNames && loadedPageNames.length > 0 && (
+            <div className='flex flex-col gap-4 border bg-mybg-basic border-white p-2 xsm:p-8'>
               <p className='font-bold text-xl'>You have '{loadedPageNames.length}' wishing {loadedPageNames.length === 1 ? 'page' : 'pages'}</p>
               {loadedPageNames.map((loadedPageName, id) => (
                 <div key={`key-pagename-${id}`} className='flex flex-row justify-between gap-8 w-full'>
@@ -117,11 +114,11 @@ const Dashboard = () => {
             </div>
           )}
 
-          {loadedPageNames && loadedPageNames.length === 0 && (
+          {auth.token && loadedPageNames && loadedPageNames.length === 0 && (
             <p>You don't have any pages yet</p>
           )}
 
-          {!loadedPageNames && (
+          {auth.token && !loadedPageNames && (
             <p>Loading your pages</p>
           )}
         </div>

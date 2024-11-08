@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Text_Default = ({myId, myKey, colour, content}) => {
+const TextDefault = ({myId, myKey, colour, content}) => {
   return (
     <div
       key={myKey}
@@ -12,4 +12,4 @@ const Text_Default = ({myId, myKey, colour, content}) => {
   )
 }
 
-export default Text_Default
+export default TextDefault

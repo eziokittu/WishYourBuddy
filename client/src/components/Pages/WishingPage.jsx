@@ -2,7 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
-import PageElement from "../Reusable/PageElement";
+import PageElement from "../Reusable/PageComponent/PageElement";
+import WishingPageMenu from '../PageComponents/WishingPageMenu';
 
 const WishingPage = () => {
   const auth = useContext(AuthContext);
@@ -39,28 +40,33 @@ const WishingPage = () => {
 
   if (loadedPage) {
     return (
-      <div className='bg-slate-800 text-gray-300 h-screen flex'>
-        {loadedPage.pageElements.filter(pageElement => pageElement.type === 'background').map(pageElement => (
-          <PageElement
-            type={'background'}
-            id={pageElement.id}
-            key={pageElement.id}
-            colour={pageElement.colour}
-          >
-            <div className='flex flex-col gap-4 justify-center'>
-              {loadedPage.pageElements.filter(pageElement => pageElement.type !== 'background').map(pageElement => (
-                <PageElement
-                  key={pageElement.id}
-                  id={pageElement.id}
-                  type={pageElement.type}
-                  content={pageElement.content}
-                  colour={pageElement.colour}
-                />
-              ))}
-            </div>
-          </PageElement>
-        ))}
-      </div>
+      <>
+        {auth.token && auth.userName === username && (
+          <WishingPageMenu />
+        )}
+        <div className='bg-slate-800 text-gray-300 h-screen flex'>
+          {loadedPage.pageElements.filter(pageElement => pageElement.type === 'background').map(pageElement => (
+            <PageElement
+              type={'background'}
+              id={pageElement.id}
+              key={pageElement.id}
+              colour={pageElement.colour}
+            >
+              <div className='flex flex-col gap-4 justify-center'>
+                {loadedPage.pageElements.filter(pageElement => pageElement.type !== 'background').map(pageElement => (
+                  <PageElement
+                    key={pageElement.id}
+                    id={pageElement.id}
+                    type={pageElement.type}
+                    content={pageElement.content}
+                    colour={pageElement.colour}
+                  />
+                ))}
+              </div>
+            </PageElement>
+          ))}
+        </div>
+      </>
     )
   }
   else {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Background_SolidColour = ({ myKey, myId, colour, children }) => {
+const BackgroundSolidColour = ({ myKey, myId, colour, children }) => {
   return (
     <div
       key={myKey}
@@ -10,4 +10,4 @@ const Background_SolidColour = ({ myKey, myId, colour, children }) => {
   )
 }
 
-export default Background_SolidColour
+export default BackgroundSolidColour

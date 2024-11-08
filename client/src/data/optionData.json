@@ -24,7 +24,7 @@
     "option_values": [0]
   },
   "gallerys": {
-    "menu_name": "Image Gallerys",
+    "menu_name": "Image Galleries",
     "component": "gallery",
     "menu_option": 3,
     "options": ["Gallery 1", "Gallery 2", "Gallery 3"],

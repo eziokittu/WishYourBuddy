@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../Backend/hooks/http-hook';
 import ColourPalette from '../Reusable/Colours/ColourPalette';
+import CustomButton1 from '../Reusable/Buttons/CustomButton1';
 
 const AdminCustomizeColour = ({auth}) => {
   const { sendRequest } = useHttpClient();
@@ -105,30 +106,15 @@ const AdminCustomizeColour = ({auth}) => {
             type="text"
             name="colourName"
             id="colourName"
-            className="w-80 text-black"
+            className="w-60 xsm:w-80 px-4 py-2 rounded-full text-black"
             placeholder="UserName"
             defaultValue={'black'}
             required=""
           />
         </div>
 
-        {/* Colour Code */}
-        {/* <div className='flex flex-col mx-auto'>
-          <label for="colourCode" className="w-fit">Colour Code</label>
-          <input
-            onChange={(event) => setInputColourCode(event.target.value)}
-            type="text"
-            name="colourCode"
-            id="colourCode"
-            className="w-80 text-black"
-            placeholder="colour Code"
-            defaultValue={"bg-black"}
-            required=""
-          />
-        </div> */}
-
         {/* Add Colour Button */}
-        <button className='hover:underline underline-offset-2' type='submit'>Add Colour</button>
+        <CustomButton1 name={"Add Colour"} isSubmit={true} colour={'green'} />
 
       </form>
 
