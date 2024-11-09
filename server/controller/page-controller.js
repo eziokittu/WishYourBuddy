@@ -18,7 +18,6 @@ const getPage = async (req, res, next) => {
     if (!existingUser) {
       return res.status(404).json({ ok: -1, message: "Invalid Username!" });
     }
-    console.log("DEBUG0");
   } catch (err) {
     return res.status(500).json({ ok: -1, message: "Fetching user failed, please try again later" });
   }
@@ -29,15 +28,11 @@ const getPage = async (req, res, next) => {
   try {
     existingPage = await Page.findOne({ name: pageName, user: existingUser._id });
     if (!existingPage) {
-      console.log("DEBUG1");
       return res.status(404).json({ ok: -1, message: "Invalid URL / page is not owned my this user" });
     }
   } catch (err) {
-    console.log("DEBUG2");
     return res.status(500).json({ ok: -1, message: `Fetching page failed, please try again later!\n${err}` });
   }
-
-  console.log("DEBUG3");
   return res.status(200).json({ ok: 1, message: "Existing Page found!", page: existingPage });
 };
 

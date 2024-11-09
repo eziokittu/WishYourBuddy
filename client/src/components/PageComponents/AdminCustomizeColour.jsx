@@ -119,7 +119,7 @@ const AdminCustomizeColour = ({auth}) => {
       </form>
 
       {/* View all Colours and delete */}
-      <ColourPalette heading={"Colour Palette"} deleteColour={deleteColour} isAdmin={auth.isAdmin} />
+      <ColourPalette heading={"Colour Palette"} deleteColour={deleteColour} isAdmin={auth.isAdmin} isVertical={true} />
     </div>
   )
 }

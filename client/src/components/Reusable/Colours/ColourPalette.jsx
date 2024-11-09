@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHttpClient } from '../../Backend/hooks/http-hook';
 import "../../../data/definedColours";
 
-const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
+const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour, isVertical}) => {
   const [selectedColour, setSelectedColour] = useState('transparent');
   const [loadedColours, setLoadedColours] = useState([]);
   const { sendRequest } = useHttpClient();
@@ -34,16 +34,16 @@ const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
   }, [])
 
   return (
-    <div className='flex flex-col items-center border-2 gap-1 xsm:gap-2'>
+    <div className='flex flex-col items-center border-2 gap-2 xsm:gap-4 p-2 xsm:p-4'>
 
       {/* Heading */}
       <div>
-        <p className='text-xl border-b-2  vorder-white px-4 py-2 rounded-full'>{heading}</p>
+        <p className='text-xl border-b-2 border-white px-4 py-2 rounded-full'>{heading}</p>
       </div>
 
       {/* Grid of all colours */}
       {loadedColours ? (
-        <div className="flex flex-col flex-wrap h-32 xsm:h-40">
+        <div className={`flex flex-wrap ${isVertical ? 'flex-row w-40' : 'flex-col h-32 xsm:h-40'}`}>
           {loadedColours.map((colour) => {
             if (colour.name !== "white" && colour.name !== "black") {
               return (
@@ -55,7 +55,7 @@ const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
                   onClick={
                     () => {
                       setSelectedColour(colour.name);
-                      chooseColour(colour.name);
+                      if (chooseColour) chooseColour(colour.name);
                     }
                   }
                 ></div>
@@ -68,7 +68,7 @@ const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
           border border-black hover:border-black hover:rounded-full`}
             onClick={() => {
               setSelectedColour('white')
-              chooseColour('white');
+              if (chooseColour) chooseColour('white');
             }}
           ></div>
           <div
@@ -77,7 +77,7 @@ const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
           border border-black hover:border-black hover:rounded-full`}
             onClick={() => {
               setSelectedColour('black')
-              chooseColour('black');
+              if (chooseColour) chooseColour('black');
             }}
           ></div>
         </div>
@@ -87,8 +87,8 @@ const ColourPalette = ({ heading, deleteColour, isAdmin, chooseColour }) => {
 
       {/* Selected Colour */}
       <div className='flex flex-row w-full items-center justify-between'>
-        <div className={`w-12 h-12 bg-${selectedColour} border border-white`}></div>
-        <p className='text-lg'>{selectedColour}</p>
+        <div className={`w-10 h-10 bg-${selectedColour} border border-white`}></div>
+        <p className='text-sm'>{selectedColour}</p>
 
         {/* Delete the colour button */}
         {isAdmin && (
