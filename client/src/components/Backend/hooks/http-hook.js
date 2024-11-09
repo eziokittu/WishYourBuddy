@@ -2,7 +2,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   const activeHttpRequests = useRef([]);
 
@@ -11,12 +11,13 @@ export const useHttpClient = () => {
       setIsLoading(true);
       const httpAbortCtrl = new AbortController();
       activeHttpRequests.current.push(httpAbortCtrl);
+
       try {
         const response = await fetch(url, {
           method,
           body,
           headers,
-          signal: httpAbortCtrl.signal
+          signal: httpAbortCtrl.signal,
         });
 
         const responseData = await response.json();
@@ -26,18 +27,18 @@ export const useHttpClient = () => {
         );
 
         if (!response.ok) {
-          throw new Error(responseData.message); 
+          throw new Error(responseData.message || 'An error occurred!');
         }
 
         setIsLoading(false);
         return responseData;
-      } 
-      catch (err) {
-        if(!err.message === 'The user aborted a request.'){
-          setError(err.message)
-          setIsLoading(false)
-          throw err
+      } catch (err) {
+        // Check if the error was due to an abort and avoid handling it as an error if so.
+        if (err.name !== 'AbortError') {
+          setError(err.message || 'Something went wrong!');
         }
+        setIsLoading(false);
+        throw err; // Re-throw to let calling functions handle the error if needed
       }
     },
     []
@@ -49,7 +50,6 @@ export const useHttpClient = () => {
 
   useEffect(() => {
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());
     };
   }, []);

@@ -26,6 +26,17 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
 
   // The data of pageElements to be saved in server side
   const [pageElements, setPageElements] = useState([]);
+  const [inputPageName, setInputPageName] = useState("");
+
+  // Page Name Validation
+  const validateInput = () => {
+    let alerts = [];
+    const pageNameRegex = /^[a-zA-Z][a-zA-Z0-9-]{0,35}$/;
+    if (!inputPageName.trim() || !pageNameRegex.test(inputPageName)) {
+      alerts.push(`Enter a valid page name (between 1-36 letters, only alphanumeric and '-' allowed, must start with a letter)`);
+    }
+    return alerts;
+  };
 
   useEffect(() => {
     // Load saved page elements on mount
@@ -68,18 +79,6 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
     );
     setPageElements(updatedPageElements);
     savePage(updatedPageElements);
-  };
-
-  const [inputPageName, setInputPageName] = useState("");
-
-  // Page Name Validation
-  const validateInput = () => {
-    let alerts = [];
-    const pageNameRegex = /^[a-zA-Z][a-zA-Z0-9-]{0,35}$/;
-    if (!inputPageName.trim() || !pageNameRegex.test(inputPageName)) {
-      alerts.push(`Enter a valid page name (between 1-36 letters, only alphanumeric and '-' allowed, must start with a letter)`);
-    }
-    return alerts;
   };
 
   // Function that saves the page elements to the page database and links to the user and then navigates to the created page

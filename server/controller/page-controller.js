@@ -1,4 +1,6 @@
 const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 // const { v4: uuidv4 } = require('uuid');
 const Page = require('../models/page');
@@ -12,45 +14,31 @@ const getPage = async (req, res, next) => {
   // Checking user validity
   let existingUser;
   try {
-    existingUser = await User.findOne({ userName: userName }, '-password').populate('pages');
+    existingUser = await User.findOne({ userName: userName });
     if (!existingUser) {
-      return res.json({ ok: -1, message: "Invalid Username!" });
+      return res.status(404).json({ ok: -1, message: "Invalid Username!" });
     }
+    console.log("DEBUG0");
   } catch (err) {
-    return res.json({ ok: -1, message: "Fetching user failed, please try again later" });
+    return res.status(500).json({ ok: -1, message: "Fetching user failed, please try again later" });
   }
 
-  // Checking page validity
+  // Checking page validity for that user
   const pageName = req.params['pageName'];
   let existingPage;
   try {
-    existingPage = await Page.findOne({ name: pageName });
+    existingPage = await Page.findOne({ name: pageName, user: existingUser._id });
     if (!existingPage) {
-      return res.json({ ok: -1, message: "Invalid page name!" });
+      console.log("DEBUG1");
+      return res.status(404).json({ ok: -1, message: "Invalid URL / page is not owned my this user" });
     }
   } catch (err) {
-    return res.json({ ok: -1, message: "Fetching page failed, please try again later!" });
+    console.log("DEBUG2");
+    return res.status(500).json({ ok: -1, message: `Fetching page failed, please try again later!\n${err}` });
   }
 
-  // Checking if the page belongs to this user
-  try {
-    let pageBelongsToUser = false;
-    for (let i = 0; i < existingUser.pages.length; i++) {
-      if (existingUser.pages[i].equals(existingPage._id)) {
-        pageBelongsToUser = true;
-        break;
-      }
-    }
-
-    // page not of this user
-    if (!pageBelongsToUser) {
-      return res.json({ ok: 1, message: "Page does not belong to this user!", page: existingPage, isOwner: false });
-    }
-  } catch (err) {
-    return res.json({ ok: -1, message: "Error checking page ownership, please try again later!" });
-  }
-
-  return res.json({ ok: 1, message: "Page belongs to this user", page: existingPage, isOwner: true });
+  console.log("DEBUG3");
+  return res.status(200).json({ ok: 1, message: "Existing Page found!", page: existingPage });
 };
 
 const getPages = async (req, res, next) => {
@@ -186,12 +174,12 @@ const deletePage = async (req, res, next) => {
   // Fetching the user with the username
   let existingUser;
   try {
-    existingUser = await User.findOne({ userName: userName });
+    existingUser = await User.findOne({ userName: userName }).populate('pages');
     if (!existingUser) {
-      return res.json({ ok: -1, message: "Invalid Username!" });
+      return res.status(404).json({ ok: -1, message: "Invalid Username!" });
     }
   } catch (err) {
-    return res.json({ ok: -1, message: "Fetching user failed, please try again later." });
+    return res.status(500).json({ ok: -1, message: "Fetching user failed, please try again later." });
   }
 
   // Finding the page with the provided name
@@ -199,10 +187,16 @@ const deletePage = async (req, res, next) => {
   try {
     pageToDelete = await Page.findOne({ name: pageName });
     if (!pageToDelete) {
-      return res.json({ ok: -1, message: "Page not found!" });
+      return res.status(404).json({ ok: -1, message: "Page not found!" });
+    }
+
+    // Verify if the page belongs to the user
+    const userOwnsPage = existingUser.pages.some(page => page._id.equals(pageToDelete._id));
+    if (!userOwnsPage) {
+      return res.status(403).json({ ok: -1, message: "User does not own this page." });
     }
   } catch (err) {
-    return res.json({ ok: -1, message: "Fetching page failed, please try again later." });
+    return res.status(500).json({ ok: -1, message: "Fetching page failed, please try again later." });
   }
 
   // Deleting the page and unlinking from the user
@@ -220,7 +214,7 @@ const deletePage = async (req, res, next) => {
     });
   } catch (err) {
     console.error("Deleting page failed! " + err);
-    return res.json({ ok: -1, message: "Deleting page failed, please try again later." });
+    return res.status(500).json({ ok: -1, message: "Deleting page failed, please try again later." });
   }
 };
 

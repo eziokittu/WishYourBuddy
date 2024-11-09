@@ -1,1 +1,1 @@
-Problem 1 - Any existing page if opened with different existing username, who does not own the page, the page still opens. it should not
+Problem 1 - for the wishing page, if the username is existing and pagename is valid too, then the wishing page opens even if the user does not own the page.

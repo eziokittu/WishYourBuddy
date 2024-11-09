@@ -4,6 +4,7 @@ import { useHttpClient } from '../Backend/hooks/http-hook';
 import { AuthContext } from '../Backend/context/auth-context';
 import PageElement from "../Reusable/PageComponent/PageElement";
 import WishingPageMenu from '../PageComponents/WishingPageMenu';
+import ErrorPage from './ErrorPage';
 
 const WishingPage = () => {
   const auth = useContext(AuthContext);
@@ -12,6 +13,7 @@ const WishingPage = () => {
   const navigate = useNavigate();
 
   const [loadedPage, setLoadedPage] = useState();
+
   const getPage = async event => {
     try {
       const responseData = await sendRequest(
@@ -25,7 +27,6 @@ const WishingPage = () => {
         console.log("Something went wrong! - " + responseData.message);
         alert("Something went wrong! - " + responseData.message);
         setTimeout(() => {
-          // window.location.reload(false);
           navigate('/')
         }, 1000);
       }
@@ -36,12 +37,12 @@ const WishingPage = () => {
 
   useEffect(() => {
     getPage();
-  }, []);
+  }, [auth]);
 
   if (loadedPage) {
     return (
       <>
-        {auth.token && auth.userName === username && (
+        {auth.token && (auth.userName === username || auth.isAdmin) && (
           <WishingPageMenu />
         )}
         <div className='bg-slate-800 text-gray-300 h-screen flex'>
@@ -71,9 +72,10 @@ const WishingPage = () => {
   }
   else {
     return (
-      <div className='bg-slate-800 text-gray-300 h-screen flex'>
-        <p className='text-center justify-center m-auto text-6xl'>Loading Page ...</p>
-      </div>
+      // <div className='bg-slate-800 text-gray-300 h-screen flex'>
+      //   <p className='text-center justify-center m-auto text-6xl'>Loading Page ...</p>
+      // </div>
+      <ErrorPage message={"Invalid URL / page is not owned my this user"} />
     )
   }
 }
