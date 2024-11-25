@@ -30,7 +30,7 @@ const CreatePage = () => {
 
         {/* Close button for mobile view */}
         {isSidebarOpen && (
-          <div onClick={toggleSidebar} className='fixed top-6 right-0 h-full w-1/6 xsm:w-1/3 sm:w-2/5 bg-black/70 flex items-center justify-left cursor-pointer text-white z-20 md:hidden'>
+          <div onClick={toggleSidebar} className='fixed top-8 right-0 h-full w-1/6 xsm:w-1/3 sm:w-2/5 bg-black/70 flex items-center justify-left cursor-pointer text-white z-20 md:hidden'>
             <div className='text-6xl xsm:text-8xl bg-slate-900/70 rounded-r-3xl flex items-center'>
               <p className='animate-[pulse_0.8s_ease-in-out_infinite] -translate-y-2 xsm:-translate-y-3'>{`<`}</p>
             </div>

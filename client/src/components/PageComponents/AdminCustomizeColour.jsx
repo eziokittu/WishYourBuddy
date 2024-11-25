@@ -100,7 +100,7 @@ const AdminCustomizeColour = ({auth}) => {
       >
         {/* Colour Name */}
         <div className='flex flex-col mx-auto'>
-          <label for="colourName" className="w-fit">Colour Name</label>
+          <label htmlFor="colourName" className="w-fit">Colour Name</label>
           <input
             onChange={(event) => setInputColourName(event.target.value)}
             type="text"

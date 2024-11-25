@@ -26,7 +26,7 @@ const TextPreviewArea = ({ optionChosen, inputText, setInputText, setInputTextCo
 
       {/* Text Area */}
       <div className='flex flex-col mx-auto'>
-        <label for="input-text" className="w-fit">Your Text</label>
+        <label htmlFor="input-text" className="w-fit">Your Text</label>
         <textarea
           onChange={(event) => setInputText(event.target.value)}
           type="text"

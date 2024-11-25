@@ -94,7 +94,7 @@ const Signup = () => {
 
           {/* Email */}
           <div className='flex flex-col mx-auto'>
-            <label for="email" className="w-fit">Email</label>
+            <label htmlFor="email" className="w-fit">Email</label>
             <input
               onChange={(event) => setInputEmail(event.target.value)}
               type="email"
@@ -108,7 +108,7 @@ const Signup = () => {
 
           {/* Password */}
           <div className='flex flex-col mx-auto'>
-            <label for="password" className="w-fit">Password</label>
+            <label htmlFor="password" className="w-fit">Password</label>
             <input
               onChange={(event) => setInputPassword(event.target.value)}
               type="password"
@@ -122,7 +122,7 @@ const Signup = () => {
 
           {/* Confirm Password */}
           <div className='flex flex-col mx-auto'>
-            <label for="confirm-password" className="w-fit">Confirm password</label>
+            <label htmlFor="confirm-password" className="w-fit">Confirm password</label>
             <input
               onChange={(event) => setInputConfirmPassword(event.target.value)}
               type="password"

@@ -89,7 +89,7 @@ const Login = () => {
 
           {/* Email */}
           <div className='flex flex-col mx-auto'>
-            <label for="email" className="w-fit">Email</label>
+            <label htmlFor="email" className="w-fit">Email</label>
             <input
               onChange={(event) => setInputEmail(event.target.value)}
               type="email"
@@ -103,7 +103,7 @@ const Login = () => {
 
           {/* Password */}
           <div className='flex flex-col mx-auto'>
-            <label for="password" className="w-fit">Password</label>
+            <label htmlFor="password" className="w-fit">Password</label>
             <input
               onChange={(event) => setInputPassword(event.target.value)}
               type="password"

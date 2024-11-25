@@ -94,7 +94,7 @@ const UpdateUserInfo = ({auth}) => {
       >
         {/* Username */}
         <div className='flex flex-col mx-auto'>
-          <label for="username" className="w-fit">Update Username</label>
+          <label htmlFor="username" className="w-fit">Update Username</label>
           <input
             onChange={(event) => setInputUsername(event.target.value)}
             type="text"
@@ -109,7 +109,7 @@ const UpdateUserInfo = ({auth}) => {
 
         {/* Email */}
         <div className='flex flex-col mx-auto'>
-          <label for="email" className="w-fit">Update Email</label>
+          <label htmlFor="email" className="w-fit">Update Email</label>
           <input
             onChange={(event) => setInputEmail(event.target.value)}
             type="email"
@@ -124,7 +124,7 @@ const UpdateUserInfo = ({auth}) => {
 
         {/* Password */}
         <div className='flex flex-col mx-auto'>
-          <label for="password" className="w-fit">Update Password</label>
+          <label htmlFor="password" className="w-fit">Update Password</label>
           <input
             onChange={(event) => setInputPassword(event.target.value)}
             type="password"
@@ -138,7 +138,7 @@ const UpdateUserInfo = ({auth}) => {
 
         {/* Confirm Password */}
         <div className='flex flex-col mx-auto'>
-          <label for="confirmPassword" className="w-fit">Confirm Updated Password</label>
+          <label htmlFor="confirmPassword" className="w-fit">Confirm Updated Password</label>
           <input
             onChange={(event) => setInputConfirmPassword(event.target.value)}
             type="password"
