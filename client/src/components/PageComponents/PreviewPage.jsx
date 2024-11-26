@@ -49,6 +49,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
       setPageElements([
         {
           type: 'background',
+          option: 0,
           id: uuidv4(),
           colour: "white",
           content: ""
@@ -61,6 +62,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
   const addTextElement = () => {
     const newPageElement = {
       type: 'text',
+      option: 0,
       id: uuidv4(),
       content: inputText,
       colour: inputTextColour
@@ -74,7 +76,7 @@ const PreviewPage = ({ menuOption, optionChosen }) => {
   const updateBackgroundElement = () => {
     const updatedPageElements = pageElements.map((element) =>
       element.type === "background"
-        ? { ...element, colour: inputBackgroundColour }
+        ? { ...element, colour: inputBackgroundColour, option: optionChosen }
         : element
     );
     setPageElements(updatedPageElements);

@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 // This is the page Element Schema
 const pageElementSchema = new Schema({
   type: { type: String, required: true, default: "text" },
+  option: { type: Number, required: true, default: 0 },
   colour: { type: String, default: "white" },
   content: { type: String, default: "" },
   id: { type: String, required: true }

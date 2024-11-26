@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PageElement from "./PageElement";
 
-const PreviewArea = ({ pageElements, menuOption, optionChosen }) => {
+const PreviewArea = ({ pageElements, optionChosen }) => {
   return (
     <div className='flex flex-col items-center gap-1 xsm:gap-2 bg-mybg-basic border border-white rounded-2xl m-2 xsm:m-4'>
       {/* Heading */}
@@ -11,7 +11,6 @@ const PreviewArea = ({ pageElements, menuOption, optionChosen }) => {
       <div className='w-full min-h-[300px] p-2 xsm:p-4 flex justify-center items-center'>
         {pageElements.filter(pageElement => pageElement.type === 'background').map(pageElement => (
           <PageElement
-            menuOption={menuOption}
             optionChosen={optionChosen}
             type={'background'}
             id={pageElement.id}
@@ -21,7 +20,6 @@ const PreviewArea = ({ pageElements, menuOption, optionChosen }) => {
             <div className='flex flex-col gap-4 justify-center'>
               {pageElements.filter(pageElement => pageElement.type !== 'background').map(pageElement => (
                 <PageElement
-                  menuOption={menuOption}
                   optionChosen={optionChosen}
                   key={pageElement.id}
                   id={pageElement.id}

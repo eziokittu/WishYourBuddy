@@ -6,13 +6,14 @@ import PreviewPage from '../PageComponents/PreviewPage';
 const CreatePage = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [menuOption, setMenuOption] = useState(0);
-  const [optionChosen, setOptionChosen] = useState("");
+  const [optionChosen, setOptionChosen] = useState(0);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   const chooseOption = (op) => {
+    // console.log("Option Chosed: ", op);
     setOptionChosen(op);
   };
 

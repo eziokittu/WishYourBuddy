@@ -4,13 +4,13 @@ import "../../../data/definedColours";
 import optionData from '../../../data/optionData.json';
 import CustomButton1 from '../Buttons/CustomButton1';
 
-const BackgroundPreviewArea = ({optionChosen, setInputBackgroundColour, updateBackgroundElement}) => {
+const BackgroundPreviewArea = ({ optionChosen, setInputBackgroundColour, updateBackgroundElement }) => {
   const [chosenColour, setChosenColour] = useState('transparent');
 
   // Callback to choose colour from the colour palette
   const chooseColour = (selectedColour) => {
-    setInputBackgroundColour(() => {return selectedColour});
-    setChosenColour(() => {return selectedColour});
+    setInputBackgroundColour(() => { return selectedColour });
+    setChosenColour(() => { return selectedColour });
     // console.log("Colour Selected: "+selectedColour);
   }
 
@@ -23,7 +23,12 @@ const BackgroundPreviewArea = ({optionChosen, setInputBackgroundColour, updateBa
       </div>
 
       {/* Selected Background */}
-      <div className={`w-[200px] h-[200px] bg-${chosenColour} border border-white`} />
+      {optionChosen === 0 && (
+        <div className={`w-[200px] h-[200px] bg-${chosenColour} border border-white`} />
+      )}
+      {optionChosen === 1 && (
+        <p className={` text-center text-${chosenColour} text-3xl`} >Snowfall Colour</p>
+      )}
 
       {/* Select Colour */}
       <ColourPalette heading={"Choose Colour"} chooseColour={chooseColour} />

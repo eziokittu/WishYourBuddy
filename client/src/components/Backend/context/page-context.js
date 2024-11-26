@@ -36,6 +36,7 @@ export const PageProvider = ({ children }) => {
     const initialPage = [
       {
         type: 'background',
+        option: 0,
         id: uuidv4(),
         colour: "white",
         content: ""
